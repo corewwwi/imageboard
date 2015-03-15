@@ -17,40 +17,34 @@ ActiveRecord::Schema.define(version: 20150311001055) do
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
-    t.string   "name",                      null: false
-    t.integer  "pages_limit", default: 10
-    t.integer  "bumplimit",   default: 500
-    t.text     "description"
-    t.text     "terms"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.string  "name",                       null: false
+    t.integer "pages_limit", default: 10
+    t.integer "bumplimit",   default: 1000
+    t.text    "description"
+    t.text    "terms"
   end
 
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id",                    null: false
-    t.datetime "created_at",                 null: false
+    t.datetime "created_at"
     t.text     "content",                    null: false
     t.boolean  "sage",       default: false
     t.boolean  "anon",       default: false
-    t.integer  "thread_id",                  null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "thr_id",                     null: false
+    t.boolean  "op",                         null: false
   end
 
   create_table "thrs", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.string   "title",      null: false
-    t.integer  "board_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "user_id",  null: false
+    t.string  "title",    null: false
+    t.integer "board_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",                      null: false
-    t.string   "email",                      null: false
-    t.string   "password",                   null: false
-    t.boolean  "banned",     default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string  "login",                    null: false
+    t.string  "email",                    null: false
+    t.string  "password",                 null: false
+    t.boolean "banned",   default: false
   end
 
 end

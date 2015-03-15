@@ -1,0 +1,28 @@
+<h1> New Board </h1>
+
+<%= form_for(@board) do |b| %>	
+	<div>
+		<%= b.label :name %>
+		<%= b.text_field :name %>
+	</div>	
+	<div>
+		<%= b.label :pages_limit %>
+		<%= b.text_field :pages_limit %>
+	</div>	
+	<div>
+		<%= b.label :bumplimit %>
+		<%= b.text_field :bumplimit %>
+	</div>	
+	<div>
+		<%= b.label :description %>
+		<%= b.text_area :description %>
+	</div>	
+	<div>
+		<%= b.label :terms %>
+		<%= b.text_area :terms %>
+	</div>	
+
+	<div>
+		<%= b.submit "Create Board" %>
+	<div>
+<% end %>		

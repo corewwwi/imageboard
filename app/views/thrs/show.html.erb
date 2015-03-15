@@ -1,0 +1,17 @@
+
+<%- @op_post.each do |p| %>
+	<div class="well">
+		<%= p.created_at %>
+		№<%= p.id %><br>
+		<%= p.content %>
+	</div>
+<% end %>
+
+
+<%- @posts.each do |p| %> 
+	<div class="well">
+		<%= p.created_at %>
+		№<%= p.id %><br>
+		<%= p.content %>
+	</div>
+<% end %>

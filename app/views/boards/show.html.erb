@@ -1,0 +1,21 @@
+
+
+<%- @thrs.each do |t| %> 
+
+<div class="well">
+	<% t.posts.where(op: true).each do |p|  %>
+		<%= p.created_at %>
+		№<%= p.id %>
+	<% end %>
+	
+
+	<%= link_to t do %> 
+		<b><%= t.title %></b> 
+	<% end %>
+		<br>
+	<% t.posts.where(op: true).each do |p|  %>
+			<%= p.content %>
+	<% end %>
+</div>
+
+<% end %>
