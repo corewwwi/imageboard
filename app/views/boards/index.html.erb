@@ -1,0 +1,23 @@
+<%= link_to 'New Board', new_board_path %>
+<table style="width:100%" class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Terms</th>
+        <th>Pages limit</th>
+        <th>Bumplimit</th>
+        <th colspan="2"></th>
+    </tr>   
+    <% @boards.each do |board| %>
+        <tr>
+            <td><h3><b><%= board.name %><b></h3></td>
+            <td><%= board.description %></td>
+            <td><%= board.terms %></td>
+            <td><%= board.pages_limit %></td>
+            <td><%= board.bumplimit %></td>
+            <td><%= link_to "Edit", edit_board_path(board) %> </td>
+            <td><%= link_to "Delete", board, confirm: 'Are you sure?', method: :delete  %></td>
+        </tr>       
+    <% end %>
+<table>
+        

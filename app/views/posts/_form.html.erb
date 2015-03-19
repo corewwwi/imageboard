@@ -1,0 +1,11 @@
+<center><h2>New Post</h2></center>
+<%= form_for([@board, @thr, @post], html: {class: "form-horizontal"}) do |f| %>
+    <div class="form-group">
+        <%= f.label "Post", class: "col-sm-2 control-label" %>
+        <div class="col-sm-7"><%= f.text_area :content, class: "form-control", rows: "3" %></div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+            <%= f.submit "Create Post", class: "btn btn-primary" %>
+    </div>
+<% end %>   

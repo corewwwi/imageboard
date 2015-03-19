@@ -1,17 +1,17 @@
-
-<%- @op_post.each do |p| %>
-	<div class="well">
-		<%= p.created_at %>
-		№<%= p.id %><br>
-		<%= p.content %>
-	</div>
+<center><h2><%= @thr.title %></h2></center>
+<%- @op_post.each do |post| %>
+    <div class="well">
+        <%= post.created_at %>
+        №<%= post.id %><br>
+        <%= post.content %>
+    </div>
+<% end %>
+<%- @posts.each do |post| %> 
+    <div class="well">
+        <%= post.created_at %>
+        №<%= post.id %><br>
+        <%= post.content %>
+    </div>
 <% end %>
 
-
-<%- @posts.each do |p| %> 
-	<div class="well">
-		<%= p.created_at %>
-		№<%= p.id %><br>
-		<%= p.content %>
-	</div>
-<% end %>
+<%= render "posts/form" %>

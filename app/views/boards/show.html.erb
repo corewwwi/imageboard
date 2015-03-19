@@ -1,21 +1,20 @@
+<center><h2><%= @board.name %></h2></center>
+<%= link_to "New Thread", new_board_thr_path(@board) %>
+<%- @thrs.each do |thr| %> 
+    <div class="well">
+        <% thr.posts.where(op: true).each do |post|  %>
+            <%= post.created_at %>
+            №<%= post.id %>
+            <% end %>
+        Ответов: <%= thr.posts.count - 1 %>
+        <%= link_to board_thr_path(@board, thr) do %> 
+            <b><%= thr.title %></b> 
+        <% end %>
+        <%= link_to "Delete", board_thr_path(@board, thr), confirm: 'Are you sure?', method: :delete %> 
+        <br>
 
-
-<%- @thrs.each do |t| %> 
-
-<div class="well">
-	<% t.posts.where(op: true).each do |p|  %>
-		<%= p.created_at %>
-		№<%= p.id %>
-	<% end %>
-	
-
-	<%= link_to t do %> 
-		<b><%= t.title %></b> 
-	<% end %>
-		<br>
-	<% t.posts.where(op: true).each do |p|  %>
-			<%= p.content %>
-	<% end %>
-</div>
-
+        <% thr.posts.where(op: true).each do |post|  %>
+            <%= post.content %>
+        <% end %>
+    </div>
 <% end %>
