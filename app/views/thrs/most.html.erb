@@ -1,1 +1,37 @@
-<center><%= link_to "Boards All", boards_path %></center>
+<center><h2>Updated Threads</h2></center><br>
+
+<%- @thrs.each do |thr| %> 
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title"> 
+              <% unless thr.posts.first.anon %>
+                    <% if current_user.admin %>
+                              <b>Admin</b>
+                        <% else %> 
+                            <%= thr.posts.first.user.email %>
+                        <% end %> 
+              <% else %>
+                    Anonymous 
+              <% end %>       
+              <%= thr.posts.first.created_at %>
+              #<%= thr.posts.first.id %>
+              <%= link_to board_thr_path(thr.board, thr) do %> 
+                    <b><%= thr.title %></b> 
+                <% end %> 
+            </h3>
+        </div>
+        <div class="panel-body">
+            <%= image_tag thr.posts.first.pic.url(:thumb) unless thr.posts.first.pic_file_size == nil%>
+            <%= thr.posts.first.content %><br>    
+        </div>
+
+        <div class="panel-footer">
+           
+            <em>Ответов:</em> 
+            <%= thr.posts_count %>                  
+        </div>
+
+    </div>
+
+<% end %>

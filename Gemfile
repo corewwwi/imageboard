@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
-
+gem 'kaminari'
+gem "paperclip", "~> 4.2"
+gem 'devise'
 gem 'heroku'
-gem 'validates_email_format_of'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record

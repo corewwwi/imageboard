@@ -6,7 +6,7 @@ class BoardsController < ApplicationController
     end 
 
     def show
-        @thrs = @board.thrs.order(:bump_time)
+        @thrs = @board.thrs.order(updated_at: :desc).page params[:page]
     end 
 
     def new
@@ -18,22 +18,24 @@ class BoardsController < ApplicationController
     end
 
     def create
-        @board = Board.new(params[:board].permit(:name, :pages_limit, :bumplimit, :description, :terms))
+        @board = Board.new(board_params)
         if @board.save
             redirect_to boards_path
         else
             render action: "new"
         end 
     end 
+
     def update
-        if @board.update(params[:board].permit(:name, :pages_limit, :bumplimit, :description, :terms))
+        if @board.update(board_params)
             redirect_to boards_path
         else
             render action: "edit"
         end
     end  
+
     def destroy
-        @board.destroy
+        @board.destroy   
         redirect_to boards_path
     end 
 
@@ -43,4 +45,7 @@ class BoardsController < ApplicationController
         @board = Board.find(params[:id])
     end 
 
+    def board_params
+      params.require(:board).permit(:name, :pages_limit, :bumplimit, :description, :terms)
+    end
 end

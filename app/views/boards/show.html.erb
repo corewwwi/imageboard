@@ -1,20 +1,53 @@
-<center><h2><%= @board.name %></h2></center>
-<%= link_to "New Thread", new_board_thr_path(@board) %>
+<center><h2><%= @board.description %></h2></center>
+<%= paginate @thrs %><br>
+<% if user_signed_in?  %> 
+    <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button"  %>
+<% end %>
+<br><br>
 <%- @thrs.each do |thr| %> 
-    <div class="well">
-        <% thr.posts.where(op: true).each do |post|  %>
-            <%= post.created_at %>
-            №<%= post.id %>
-            <% end %>
-        Ответов: <%= thr.posts.count - 1 %>
-        <%= link_to board_thr_path(@board, thr) do %> 
-            <b><%= thr.title %></b> 
-        <% end %>
-        <%= link_to "Delete", board_thr_path(@board, thr), confirm: 'Are you sure?', method: :delete %> 
-        <br>
 
-        <% thr.posts.where(op: true).each do |post|  %>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title"> 
+                <% thr.posts.where(op: true).each do |post|  %>
+                    <% unless post.anon %>
+                        <% if current_user.admin %>
+                                <b>Admin</b>
+                        <% else %> 
+                            <%= post.user.email %>
+                        <% end %>   
+                    <% else %>   
+                        Anonymous 
+                    <% end %>
+
+                    <%= post.created_at %>
+                    #<%= post.id %>
+                <% end %>
+                
+                <%= link_to board_thr_path(@board, thr) do %> 
+                    <b><%= thr.title %></b> 
+                <% end %>
+            </h3>
+        </div>
+
+        <div class="panel-body">
+            <% thr.posts.where(op: true).each do |post|  %>
+            <%= image_tag post.pic.url(:thumb) unless post.pic_file_size == nil%>
             <%= post.content %>
-        <% end %>
+            <% end %>   
+        </div>
+
+        <div class="panel-footer">
+            <% if user_signed_in? && current_user.admin %> 
+                <%= link_to "Delete", board_thr_path(@board, thr), confirm: 'Are you sure?', method: :delete, class: "btn btn-danger", role: "button" %> 
+            <% end %> 
+            <em>Ответов:</em> 
+            <%= thr.posts_count %>                  
+        </div>
+
     </div>
 <% end %>
+<% if @thrs.count == 0 %>
+    <center><h2>There are no Threads yet. You can <%= link_to "create", new_board_thr_path(@board)%> first!</h2></center>
+<% end %>    
+<%= paginate @thrs %>

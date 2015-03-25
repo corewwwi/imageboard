@@ -1,4 +1,5 @@
-<%= link_to 'New Board', new_board_path %>
+<br>
+<%= link_to 'New Board', new_board_path, class: "btn btn-success", role: "button" %>
 <table style="width:100%" class="table">
     <tr>
         <th>Name</th>
@@ -8,9 +9,9 @@
         <th>Bumplimit</th>
         <th colspan="2"></th>
     </tr>   
-    <% @boards.each do |board| %>
+    <% @boards.order(name: :desc).each do |board| %>
         <tr>
-            <td><h3><b><%= board.name %><b></h3></td>
+            <td><b><%= board.name %><b></td>
             <td><%= board.description %></td>
             <td><%= board.terms %></td>
             <td><%= board.pages_limit %></td>

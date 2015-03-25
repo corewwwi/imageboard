@@ -1,17 +1,78 @@
 <center><h2><%= @thr.title %></h2></center>
+
 <%- @op_post.each do |post| %>
-    <div class="well">
-        <%= post.created_at %>
-        №<%= post.id %><br>
-        <%= post.content %>
-    </div>
-<% end %>
-<%- @posts.each do |post| %> 
-    <div class="well">
-        <%= post.created_at %>
-        №<%= post.id %><br>
-        <%= post.content %>
+    <div class="panel panel-primary" id=<%= post.id %>>
+        <div class="panel-heading">
+            <h3 class="panel-title" >
+                <% unless post.anon %>
+                    <% if current_user.admin %>
+                            <b>Admin</b>
+                        <% else %> 
+                            <%= post.user.email %>
+                        <% end %> 
+                <% else %>
+                    Anonymous 
+                <% end %>       
+                <%= post.created_at %>
+                #<%= post.id %>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <%= image_tag post.pic.url(:thumb) unless post.pic_file_size == nil%>
+            <%= post.content %>
+            
+        </div>
+              
+        <% if post.answers.count > 0 %>
+            <div class="panel-footer">
+                <em> Ответы: </em>
+                    <% post.answers.each do |answer| %>
+                    <%= link_to ">>#{answer.id}", board_thr_path(@board, @thr, anchor: answer.id) %>
+                <% end %>     
+            </div>
+        <% end %>        
     </div>
 <% end %>
 
-<%= render "posts/form" %>
+<%- @simple_posts.each do |post| %> 
+    <% if post.sage %>
+        <div class="panel panel-danger" id=<% post.id %>>
+    <% else %>    
+        <div class="panel panel-success" id=<% post.id %>>
+    <% end %>    
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <% unless post.anon %>
+                    <% if current_user.admin %>
+                            <b>Admin</b>
+                        <% else %> 
+                            <%= post.user.email %>
+                        <% end %> 
+                <% else %>
+                    Anonymous 
+                <% end %> 
+                <%= post.created_at %>
+                #<%= post.id %>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <%= image_tag post.pic.url(:thumb) unless post.pic_file_size == nil %>
+            <%= post.content %><br>  
+        </div>
+              
+        <% if post.answers.count > 0 %>
+            <div class="panel-footer">
+                <em> Ответы: </em>
+                    <% post.answers.each do |answer| %>
+                    <%= link_to ">>#{answer.id}", board_thr_path(@board, @thr, anchor: answer.id) %>
+                <% end %>     
+            </div>
+        <% end %>  
+    </div>
+<% end %>
+
+<% if user_signed_in? %>
+    <%= render "posts/form" %> 
+<% else %>
+    <center><h2>Login to create post, pls.</h2></center>  
+<% end %>      
