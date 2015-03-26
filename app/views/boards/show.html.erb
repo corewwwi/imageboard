@@ -42,7 +42,7 @@
                 <%= link_to "Delete", board_thr_path(@board, thr), confirm: 'Are you sure?', method: :delete, class: "btn btn-danger", role: "button" %> 
             <% end %> 
             <em>Ответов:</em> 
-            <%= thr.posts_count %>                  
+            <%= thr.child_posts_count %>                  
         </div>
 
     </div>

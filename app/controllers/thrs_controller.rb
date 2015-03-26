@@ -50,9 +50,6 @@ class ThrsController < ApplicationController
     def destroy_old_thr
         while @board.thrs.count > @board.pages_limit * 5
             last_thr = @board.thrs.order(updated_at: :desc).last
-            last_thr.posts.each do |post|
-                post.destroy
-            end
             last_thr.destroy      
         end  
     end    

@@ -18,10 +18,9 @@ class PostsController < ApplicationController
         #binding.pry
         @post.user_id = current_user.id
 
-        @post.content.scan(/>>\d+/).join(' ').scan(/\d+/).each do |p|
-            if p.to_i <= @thr.posts.last.id
-                to_post = @thr.posts.find(p)
-                to_post.answers << @post
+        @post.content.scan(/>>\d+/).join(' ').scan(/\d+/).each do |p|          
+            if parent_post = @thr.posts.find_by_id(p)
+                parent_post.answers << @post
             end
         end    
         @post.save

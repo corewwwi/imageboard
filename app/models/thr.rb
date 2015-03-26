@@ -10,7 +10,7 @@ class Thr < ActiveRecord::Base
 
     paginates_per 5
 
-    def posts_count
+    def child_posts_count
     	self.posts.count - 1
     end	
 

@@ -9,7 +9,7 @@
         <th>Bumplimit</th>
         <th colspan="2"></th>
     </tr>   
-    <% @boards.order(name: :desc).each do |board| %>
+    <% @boards.each do |board| %>
         <tr>
             <td><b><%= board.name %><b></td>
             <td><%= board.description %></td>
