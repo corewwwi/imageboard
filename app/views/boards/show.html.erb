@@ -11,13 +11,13 @@
             <h3 class="panel-title"> 
                 <% thr.posts.where(op: true).each do |post|  %>
                     <% unless post.anon %>
-                        <% if current_user.admin %>
-                                <b>Admin</b>
-                        <% else %> 
-                            <%= post.user.email %>
-                        <% end %>   
-                    <% else %>   
-                        Anonymous 
+                        <% if post.user.admin %>
+                            <b>Admin</b>
+                        <% else %>
+                            <%= post.user.email %>  
+                        <% end %>
+                    <% else %>
+                        Anonymous
                     <% end %>
 
                     <%= post.created_at %>

@@ -6,13 +6,13 @@
         <div class="panel-heading">
             <h3 class="panel-title"> 
               <% unless thr.posts.first.anon %>
-                    <% if current_user.admin %>
-                              <b>Admin</b>
-                        <% else %> 
-                            <%= thr.posts.first.user.email %>
-                        <% end %> 
+                <% if thr.posts.first.user.admin %>
+                  <b>Admin</b>
+                <% else %>
+                  <%= thr.posts.first.user.email %>  
+                <% end %>
               <% else %>
-                    Anonymous 
+                Anonymous
               <% end %>       
               <%= thr.posts.first.created_at %>
               #<%= thr.posts.first.id %>

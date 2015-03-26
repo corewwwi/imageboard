@@ -4,15 +4,17 @@
     <div class="panel panel-primary" id=<%= post.id %>>
         <div class="panel-heading">
             <h3 class="panel-title" >
+                
                 <% unless post.anon %>
-                    <% if current_user.admin %>
-                            <b>Admin</b>
-                        <% else %> 
-                            <%= post.user.email %>
-                        <% end %> 
+                    <% if post.user.admin %>
+                        <b>Admin</b>
+                    <% else %>
+                        <%= post.user.email %>  
+                    <% end %>
                 <% else %>
-                    Anonymous 
-                <% end %>       
+                    Anonymous
+                <% end %>           
+
                 <%= post.created_at %>
                 #<%= post.id %>
             </h3>
@@ -43,13 +45,13 @@
         <div class="panel-heading">
             <h3 class="panel-title">
                 <% unless post.anon %>
-                    <% if current_user.admin %>
-                            <b>Admin</b>
-                        <% else %> 
-                            <%= post.user.email %>
-                        <% end %> 
+                    <% if post.user.admin %>
+                        <b>Admin</b>
+                    <% else %>
+                        <%= post.user.email %>  
+                    <% end %>
                 <% else %>
-                    Anonymous 
+                    Anonymous
                 <% end %> 
                 <%= post.created_at %>
                 #<%= post.id %>
