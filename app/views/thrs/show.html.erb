@@ -36,11 +36,14 @@
     </div>
 <% end %>
 
+
+
+
 <%- @simple_posts.each do |post| %> 
     <% if post.sage %>
-        <div class="panel panel-danger" id=<% post.id %>>
+        <div class="panel panel-danger" id=<%= post.id %>>
     <% else %>    
-        <div class="panel panel-success" id=<% post.id %>>
+        <div class="panel panel-success" id=<%= post.id %>>
     <% end %>    
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -59,7 +62,18 @@
         </div>
         <div class="panel-body">
             <%= image_tag post.pic.url(:thumb) unless post.pic_file_size == nil %>
-            <%= post.content %><br>  
+
+            <% content = post.content %>
+            <% parent_posts_id = content.scan(/>>\d+/).join(' ').scan(/\d+/) %>
+            <% parent_posts_id.each do |parent_post_id| %>
+                <% if @thr.posts.find_by_id(parent_post_id) %>
+                    <% content.sub!(">>#{parent_post_id}",  link_to(">>#{parent_post_id}", board_thr_path(@board, @thr, anchor: parent_post_id))  ) %>    
+                <% end %>  
+            <% end %> 
+            
+            <%= content.html_safe %>
+
+            <br>  
         </div>
               
         <% if post.answers.count > 0 %>
