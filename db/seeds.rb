@@ -8,5 +8,5 @@
 
     user1 = User.create(email: "user@gmail.com", password: "12345678")  
     admin = User.create(email: "admin@gmail.com", password: "12345678", admin: true)    
-        
+    banned_user = User.create(email: "ban@gmail.com", password: "12345678", banned: true)    
 

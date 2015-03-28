@@ -99,8 +99,10 @@
     </div>
 <% end %>
 
-<% if user_signed_in? %>
+<% if user_signed_in? && !current_user.banned? %>
     <%= render "posts/form" %> 
+<% elsif user_signed_in? && current_user.banned? %>
+    <center><h2>You cannot leave post because you're BANNED!</h2></center>    
 <% else %>
     <center><h2>Login to create post, pls.</h2></center>  
 <% end %>      

@@ -4,17 +4,19 @@
         <th>Created</th>
         <th>Sign in</th>
         <th>Last sign in</th>
-        <th>Bunned</th>
+        <th >Status</th>
+        <th></th>
         
     </tr>   
     <% @users.order(created_at: :desc).each do |user| %>
-        <tr>
-            <td><b><%= user.email %><b></td>
+
+        <tr class="<%= "danger" if user.banned %>" >
+            <td><b><%= user.email %><%= " <em>(admin)</em>".html_safe if user.admin %><b></td>
             <td><%= user.created_at %></td>
             <td><%= user.sign_in_count %></td>
             <td><%= user.last_sign_in_at %></td>
-            <td></td>
-            
+            <td><%= "<b>Bunned</b>".html_safe if user.banned %></td>
+            <td><%= link_to "Edit", edit_user_path(user), class: "btn btn-success", role: "button"  %></td>
         </tr>       
     <% end %>
 <table>

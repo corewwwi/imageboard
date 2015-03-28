@@ -1,6 +1,6 @@
 <center><h2><%= @board.description %></h2></center>
 <%= paginate @thrs %><br>
-<% if user_signed_in?  %> 
+<% if user_signed_in? && !current_user.banned?  %> 
     <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button"  %>
 <% end %>
 <br><br>

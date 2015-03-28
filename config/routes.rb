@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       resources :posts
      end 
   end  
-  resources :users, only: [:index]
+  resources :users
   # Example resource route with options:
   #   resources :products do
   #     member do
