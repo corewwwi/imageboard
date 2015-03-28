@@ -32,8 +32,12 @@
 
         <div class="panel-body">
             <% thr.posts.where(op: true).each do |post|  %>
-            <%= image_tag post.pic.url(:thumb) unless post.pic_file_size == nil%>
-            <%= post.content %>
+                <table>
+                    <tr valign="top">
+                        <td><%= image_tag post.pic.url(:thumb) if post.pic_file_size %></td>
+                        <td class="content"><%= post.content.gsub("\n",'<br>').html_safe %></td>
+                    </tr>
+                </table>        
             <% end %>   
         </div>
 

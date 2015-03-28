@@ -20,8 +20,13 @@
             </h3>
         </div>
         <div class="panel-body">
-            <%= image_tag post.pic.url(:thumb) unless post.pic_file_size == nil%>
-            <%= post.content %>
+
+            <table>
+                <tr valign="top">
+                    <td><%= image_tag post.pic.url(:thumb) if post.pic_file_size  %></td>
+                    <td class="content"><%= post.content.gsub("\n",'<br>').html_safe %></td>
+                </tr>
+            </table>
             
         </div>
               
@@ -61,19 +66,26 @@
             </h3>
         </div>
         <div class="panel-body">
-            <%= image_tag post.pic.url(:thumb) unless post.pic_file_size == nil %>
+            <table>
+                <tr valign="top">
+                    <td>
+                        <%= image_tag post.pic.url(:thumb) if post.pic_file_size  %>
+                    </td>
+                    <td class="content">
+                        <% content = post.content %>
+                        <% parent_posts_id = content.scan(/>>\d+/).join(' ').scan(/\d+/) %>
+                            <% parent_posts_id.each do |parent_post_id| %>
+                                <% if @thr.posts.find_by_id(parent_post_id) %>
+                                    <% content.sub!(">>#{parent_post_id}",  link_to(">>#{parent_post_id}", board_thr_path(@board, @thr, anchor: parent_post_id))  ) %>    
+                                <% end %>  
+                            <% end %> 
 
-            <% content = post.content %>
-            <% parent_posts_id = content.scan(/>>\d+/).join(' ').scan(/\d+/) %>
-            <% parent_posts_id.each do |parent_post_id| %>
-                <% if @thr.posts.find_by_id(parent_post_id) %>
-                    <% content.sub!(">>#{parent_post_id}",  link_to(">>#{parent_post_id}", board_thr_path(@board, @thr, anchor: parent_post_id))  ) %>    
-                <% end %>  
-            <% end %> 
+                    <%= content.gsub("\n",'<br>').html_safe %>
+                    </td>
+                </tr>
+            </table>        
+
             
-            <%= content.html_safe %>
-
-            <br>  
         </div>
               
         <% if post.answers.count > 0 %>
