@@ -1,5 +1,9 @@
 class BoardsController < ApplicationController
     before_action :get_board, only: [:show, :edit, :update, :destroy]
+    before_action :authenticate_user!, except: [:show]
+    before_action  except: [:show]  do 
+        render_404 unless current_user.admin     
+    end
     
     def index
         @boards = Board.all.order(name: :desc)
@@ -47,5 +51,9 @@ class BoardsController < ApplicationController
 
     def board_params
       params.require(:board).permit(:name, :pages_limit, :bumplimit, :description, :terms)
+    end
+
+    def render_404
+        render file: "#{Rails.root}/public/404.html", layout: false, status: 404
     end
 end

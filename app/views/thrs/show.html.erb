@@ -3,18 +3,8 @@
 <%- @op_post.each do |post| %>
     <div class="panel panel-primary" id=<%= post.id %>>
         <div class="panel-heading">
-            <h3 class="panel-title" >
-                
-                <% unless post.anon %>
-                    <% if post.user.admin %>
-                        <b>Admin</b>
-                    <% else %>
-                        <%= post.user.email %>  
-                    <% end %>
-                <% else %>
-                    Anonymous
-                <% end %>           
-
+            <h3 class="panel-title" >              
+                <%= render partial: 'username', :locals => { post: post } %>
                 <%= post.created_at %>
                 #<%= post.id %>
             </h3>
@@ -43,7 +33,6 @@
 
 
 
-
 <%- @simple_posts.each do |post| %> 
     <% if post.sage %>
         <div class="panel panel-danger" id=<%= post.id %>>
@@ -52,15 +41,7 @@
     <% end %>    
         <div class="panel-heading">
             <h3 class="panel-title">
-                <% unless post.anon %>
-                    <% if post.user.admin %>
-                        <b>Admin</b>
-                    <% else %>
-                        <%= post.user.email %>  
-                    <% end %>
-                <% else %>
-                    Anonymous
-                <% end %> 
+                <%= render partial: 'username', :locals => { post: post } %> 
                 <%= post.created_at %>
                 #<%= post.id %>
             </h3>
@@ -99,10 +80,8 @@
     </div>
 <% end %>
 
-<% if user_signed_in? && !current_user.banned? %>
-    <%= render "posts/form" %> 
-<% elsif user_signed_in? && current_user.banned? %>
-    <center><h2>You cannot leave post because you're BANNED!</h2></center>    
+<% if user_signed_in? %>
+    <%= render "posts/form" %>     
 <% else %>
     <center><h2>Login to create post, pls.</h2></center>  
 <% end %>      

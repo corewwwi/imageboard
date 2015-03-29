@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
 	before_action :get_user, only: [:edit, :update] 
+    before_action :authenticate_user!
+    before_action do 
+        render_404 unless current_user.admin?
+    end
+    
 
     def index
         @users = User.all
@@ -26,4 +31,8 @@ class UsersController < ApplicationController
     def user_params
     	params.require(:user).permit(:email, :banned, :admin)
     end	
+
+    def render_404
+        render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+    end
 end

@@ -1,7 +1,12 @@
 <center><h2><%= @board.description %></h2></center>
 <%= paginate @thrs %><br>
-<% if user_signed_in? && !current_user.banned?  %> 
-    <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button"  %>
+<% if user_signed_in? %> 
+    <% if current_user.banned? %>
+        <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button", disabled: "disabled" %> 
+        <b><font color="red">You are banned!</font></b>
+    <% else %>
+        <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button" %> 
+    <% end %>      
 <% end %>
 <br><br>
 <%- @thrs.each do |thr| %> 
@@ -10,16 +15,7 @@
         <div class="panel-heading">
             <h3 class="panel-title"> 
                 <% thr.posts.where(op: true).each do |post|  %>
-                    <% unless post.anon %>
-                        <% if post.user.admin %>
-                            <b>Admin</b>
-                        <% else %>
-                            <%= post.user.email %>  
-                        <% end %>
-                    <% else %>
-                        Anonymous
-                    <% end %>
-
+                    <%= render partial: 'thrs/username', :locals => { post: post } %>
                     <%= post.created_at %>
                     #<%= post.id %>
                 <% end %>

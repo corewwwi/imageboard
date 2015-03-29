@@ -1,0 +1,17 @@
+<% unless post.anon %>
+    <% if post.user.admin %>
+        <b>Admin</b>
+    <% else %>
+        <%= post.user.email %>  
+    <% end %>
+<% else %>
+    <% if user_signed_in? && current_user.admin? %>
+        <% if post.user.admin %>
+            <b>Anonymous<em>(admin)</em></b>
+        <% else %>
+            Anonymous<em>(<%= post.user.email %>)</em> 
+        <% end %>
+    <% else %>
+        Anonymous    
+    <% end %>
+<% end %> 

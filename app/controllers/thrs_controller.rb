@@ -2,6 +2,14 @@ class ThrsController < ApplicationController
     before_action :get_board, except: [:most, :index]
     before_action :get_thr, only: [:show, :destroy]
     after_action :destroy_old_thr, only: [:create]
+    before_action :authenticate_user!, except: [:most, :show]
+    before_action only: [:destroy] do 
+        render_404 unless current_user.admin?
+    end
+    before_action only: [:new, :create] do 
+        render_404 if current_user.banned?
+    end
+
     def most
         @thrs = Thr.all.order(updated_at: :desc).limit(10)
     end    
@@ -60,5 +68,9 @@ class ThrsController < ApplicationController
 
     def get_thr
         @thr = Thr.find(params[:id]) 
+    end
+
+    def render_404
+        render file: "#{Rails.root}/public/404.html", layout: false, status: 404
     end
 end

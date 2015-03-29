@@ -5,20 +5,17 @@
     <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title"> 
-              <% unless thr.posts.first.anon %>
-                <% if thr.posts.first.user.admin %>
-                  <b>Admin</b>
-                <% else %>
-                  <%= thr.posts.first.user.email %>  
-                <% end %>
-              <% else %>
-                Anonymous
-              <% end %>       
+              <%= render partial: 'username', :locals => { post: thr.posts.first } %>   
               <%= thr.posts.first.created_at %>
-              #<%= thr.posts.first.id %>
+              #<%= thr.posts.first.id %>  
               <%= link_to board_thr_path(thr.board, thr) do %> 
-                    <b><%= thr.title %></b> 
-                <% end %> 
+                <b><%= thr.title %></b> 
+              <% end %>  
+              from: 
+               <%= link_to board_path(thr.board) do %>
+                <b><%= thr.board.name %></b>
+              <% end %> 
+              
             </h3>
         </div>
         <div class="panel-body">

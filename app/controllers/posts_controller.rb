@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
     before_action :get_thr, only: [:new, :create]
     before_action :get_board, only: [:new, :create]
-
+    before_action :authenticate_user!, only: [:new, :create]
+    before_action only: [:new, :create] do 
+        render_404 if current_user.banned?
+    end    
     def edit
     end
     
@@ -20,7 +23,7 @@ class PostsController < ApplicationController
 
         @post.content.scan(/>>\d+/).join(' ').scan(/\d+/).each do |p|          
             if parent_post = @thr.posts.find_by_id(p)
-                parent_post.answers << @post
+                parent_post.answers << @post unless parent_post.answers.include?(@post)
             end
         end    
         @post.save
@@ -42,7 +45,11 @@ class PostsController < ApplicationController
 
     def post_params
         params.require(:post).permit(:content, :pic, :sage, :anon)
-    end    
+    end  
+
+    def render_404
+        render file: "#{Rails.root}/public/404.html", layout: false, status: 404
+    end  
 end
 
 
