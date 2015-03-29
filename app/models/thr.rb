@@ -14,10 +14,11 @@ class Thr < ActiveRecord::Base
     	self.posts.count - 1
     end	
 
-    def thr_save(t, p)
-    	transaction do
-    		t.save
-    		p.save
-    	end
-    end                   
+    def save_with_post(post)
+        Thr.transaction do
+            save!
+            post.thr = self
+            post.save!
+        end  
+    end
 end

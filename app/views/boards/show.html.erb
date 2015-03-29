@@ -31,7 +31,7 @@
                 <table>
                     <tr valign="top">
                         <td><%= image_tag post.pic.url(:thumb) if post.pic_file_size %></td>
-                        <td class="content"><%= post.content.gsub("\n",'<br>').html_safe %></td>
+                        <td class="content"><%= post.content.strip.gsub("\n",'<br>').html_safe %></td>
                     </tr>
                 </table>        
             <% end %>   

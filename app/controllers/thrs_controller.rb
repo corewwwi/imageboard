@@ -32,19 +32,17 @@ class ThrsController < ApplicationController
     def create
         @thr = Thr.new(params[:thr].permit(:title))
         @thr.board_id = @board.id
-        @thr.save
+        
 
         @post = Post.new(params.permit(:content, :pic, :anon))
-        @post.thr_id = @thr.id
+        
         @post.user_id = current_user.id
         @post.op = true
+        @post.content = nil if @post.content.scan(/\S/).size == 0
         
-        if  @post.save#thr_save(@thr, @post)
+        @thr.save_with_post(@post) 
 
-            redirect_to [@board, @thr]
-        else
-            render action: “new”
-        end   
+        redirect_to [@board, @thr]
              
     end 
 

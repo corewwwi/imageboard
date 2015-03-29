@@ -4,10 +4,11 @@ class PostsController < ApplicationController
     before_action :authenticate_user!, only: [:new, :create]
     before_action only: [:new, :create] do 
         render_404 if current_user.banned?
-    end    
+    end
+
     def edit
     end
-    
+
     def delete
     end 
 
@@ -21,11 +22,14 @@ class PostsController < ApplicationController
         #binding.pry
         @post.user_id = current_user.id
 
-        @post.content.scan(/>>\d+/).join(' ').scan(/\d+/).each do |p|          
-            if parent_post = @thr.posts.find_by_id(p)
+        parent_posts_id = @post.content.scan(/>>\d+/).join(' ').scan(/\d+/)
+        parent_posts_id.each do |parent_post_id|          
+            if parent_post = @thr.posts.find_by_id(parent_post_id)
                 parent_post.answers << @post unless parent_post.answers.include?(@post)
+                @post.content.sub!(">>#{parent_post_id}",  view_context.link_to(">>#{parent_post_id}", board_thr_path(@board, @thr, anchor: parent_post_id)))
             end
         end    
+        @post.content = nil if @post.content.scan(/\S/).size == 0
         @post.save
         @thr.updated_at = @post.created_at unless (@post.sage || @thr.posts.count > @board.bumplimit)
         @thr.save

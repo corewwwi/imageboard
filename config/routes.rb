@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :boards do
     resources :thrs do
-      resources :posts
+      resources :posts, except: [:destroy]
      end 
   end  
   resources :users
