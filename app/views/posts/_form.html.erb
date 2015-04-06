@@ -1,56 +1,64 @@
 <center><h2>New Post</h2></center>
-<%= form_for([@board, @thr, @post], html: {class: "form-horizontal", multipart: true }) do |f| %>
-    <div class="form-group">
-        <%= f.label "Post", class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_area :content, class: "form-control", rows: "3" %></div>
-    </div>
+<%= form_for([@board, @thr, @post], html: {class: "form-horizontal", multipart: true } ) do |f| %>
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-            <%= f.label :sage, class: "checkbox" do %>    
-              <%= f.check_box :sage %>Sage
-            <% end %>            
-        </div>
-      </div>    
+        <%= f.label "Post", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_area :content, class: "form-control", rows: "4", placeholder: "Max 15000 chr.", id: "content" %></div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="checkbox">
+                <%= f.label :sage, class: "checkbox" do %>    
+                    <%= f.check_box :sage %>Sage
+                <% end %>            
+            </div>
+        </div>    
     </div> 
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-            <%= f.label :anon, class: "checkbox" do %>    
-              <%= f.check_box :anon %>Anonymous
-            <% end %>            
-        </div>
-      </div>    
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="checkbox">
+                <%= f.label :anon, class: "checkbox" do %>    
+                    <%= f.check_box :anon %>Anonymous
+                <% end %>            
+            </div>
+        </div>    
     </div> 
 
-  <div class="form-group">
-    <%= f.label "Pic", class: "col-sm-2 control-label" %>
-    <div class="col-sm-7">
-      <div class="fileinput fileinput-new" data-provides="fileinput">
-          <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;" ></div>
-          <div>
-            <span class="btn btn-default btn-file">
-              <span class="fileinput-new">Select image</span>
-              <span class="fileinput-exists">Change</span>
-              <%= f.file_field :pic %>
-            </span>
-            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-          </div>
-      </div>
-    </div>
-  </div>
-
-  
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
-          <% if current_user.banned? %>
-            <%= f.submit "Create Post", class: "btn btn-primary", disabled: "disabled" %> 
-            <b><font color="red">You are banned!</font></b>
-          <% else %>
-            <%= f.submit "Create Post", class: "btn btn-primary" %>
-          <% end %>  
+        <%= f.label "Youtube", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_field :youtube_video, class: "form-control" %></div>
     </div>
 
-<% end %>   
+
+    <div class="form-group">
+        <%= f.label "Pic", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 108px; height: 108px;" ></div>
+                <div>
+                    <span class="btn btn-default btn-file">
+                        <span class="fileinput-new">Select image</span>
+                        <span class="fileinput-exists">Change</span>
+                            <%= f.file_field :pic %>
+                    </span>
+                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <% if current_user.banned? %>
+                <%= f.submit "Create Post", class: "btn btn-primary", disabled: "disabled" %> 
+                <b class="text-danger">You are banned!</font></b>
+            <% else %>
+                <%= f.submit "Create Post", class: "btn btn-primary" %>
+            <% end %>  
+        </div>
+    </div>
+
+<% end %>  
+

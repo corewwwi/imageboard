@@ -1,4 +1,4 @@
-<br>
+<center><h2><b>Boards List</b></h2></center>
 <%= link_to 'New Board', new_board_path, class: "btn btn-success", role: "button" %>
 <table style="width:100%" class="table">
     <tr>
@@ -17,7 +17,7 @@
             <td><%= board.pages_limit %></td>
             <td><%= board.bumplimit %></td>
             <td><%= link_to "Edit", edit_board_path(board) %> </td>
-            <td><%= link_to "Delete", board, confirm: 'Are you sure?', method: :delete  %></td>
+            <td><%= link_to "Delete", board, method: :delete, data: { confirm: 'Are you sure you want to delete ' + board.name + ' board?'} %></td>
         </tr>       
     <% end %>
 <table>

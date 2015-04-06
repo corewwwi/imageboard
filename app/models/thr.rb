@@ -3,12 +3,14 @@ class Thr < ActiveRecord::Base
     belongs_to :user
     has_many :posts, dependent: :destroy 
  
-    validates :title, length: { in: 1..30,
-                                message: "Title must have 1..30 characters!" }
+    validates :title, length: { in: 1..70,
+                                message: "Title must have 1..70 characters!" }
     
     #before_create :set_op 
 
-    paginates_per 5
+    before_destroy :delete_pic
+
+    paginates_per 3
 
     def child_posts_count
     	self.posts.count - 1
@@ -21,4 +23,18 @@ class Thr < ActiveRecord::Base
             post.save!
         end  
     end
+
+    def delete_pic
+        self.posts.each do |post| 
+            post.pic.destroy
+        end     
+    end    
+
+    def bump_limit?
+        if self.posts.count >= self.board.bumplimit
+            true
+        end
+    end    
+
+           
 end

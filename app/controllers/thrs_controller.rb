@@ -1,7 +1,7 @@
 class ThrsController < ApplicationController
     before_action :get_board, except: [:most, :index]
-    before_action :get_thr, only: [:show, :destroy]
-    after_action :destroy_old_thr, only: [:create]
+    before_action :get_thr, only: [:show, :destroy, :edit, :update]
+    after_action :destroy_old_thr, only: [:new, :create]
     before_action :authenticate_user!, except: [:most, :show]
     before_action only: [:destroy] do 
         render_404 unless current_user.admin?
@@ -20,7 +20,7 @@ class ThrsController < ApplicationController
 
     def show
         @posts = @thr.posts
-        @simple_posts = @posts.simple_posts
+        @simple_posts = @posts.simple_posts.order(:created_at)
         @op_post = @posts.op_post
         @post = Post.new
     end 
@@ -30,24 +30,41 @@ class ThrsController < ApplicationController
     end 
     
     def create
-        @thr = Thr.new(params[:thr].permit(:title))
+        @thr = Thr.new(thr_params)
         @thr.board_id = @board.id
         
 
-        @post = Post.new(params.permit(:content, :pic, :anon))
+        @post = Post.new(params.permit(:content, :pic, :anon, :youtube_video))
         
         @post.user_id = current_user.id
         @post.op = true
         @post.content = nil if @post.content.scan(/\S/).size == 0
         
-        @thr.save_with_post(@post) 
-
-        redirect_to [@board, @thr]
-             
+        if @thr.save_with_post(@post) 
+            flash[:notice] = "Thread successfully created"
+            redirect_to [@board, @thr]
+        else
+            render action: 'new'    
+        end     
     end 
+
+    def edit
+
+    end
+    
+    def update 
+        if @thr.update(thr_params)
+            flash[:notice] = "Thread successfully updated"
+            redirect_to [@board, @thr]
+        else
+            render action: "edit"
+        end
+    end    
+
 
     def destroy
         @thr.destroy
+        flash[:notice] = "Thread successfully destroyed"
         redirect_to [@board]
     end 
 
@@ -67,6 +84,10 @@ class ThrsController < ApplicationController
     def get_thr
         @thr = Thr.find(params[:id]) 
     end
+
+    def thr_params
+        params.require(:thr).permit(:title)
+    end    
 
     def render_404
         render file: "#{Rails.root}/public/404.html", layout: false, status: 404

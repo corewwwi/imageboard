@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-    user1 = User.create(email: "user@gmail.com", password: "12345678")  
-    admin = User.create(email: "admin@gmail.com", password: "12345678", admin: true)    
-    banned_user = User.create(email: "ban@gmail.com", password: "12345678", banned: true)    
+    user = User.create(email: "user@gmail.com", password: "12345678", username: "user")  
+    admin = User.create(email: "admin@gmail.com", password: "12345678", admin: true, username: "admin")    
+    banned_user = User.create(email: "ban@gmail.com", password: "12345678", banned: true, username: "ban")    
 

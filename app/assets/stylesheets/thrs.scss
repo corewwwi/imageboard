@@ -1,8 +1,24 @@
 // Place all the styles related to the thrs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.post{
+    display:table;
+    border-collapse:collapse;
+}
+
+td.youtube_video{
+    width:250px;
+    padding-left:10px;
+}
+
 td.content{
-	padding-left: 10px;
-	word-break: break-word;
-	display: inline-block;
+    word-break:break-word;
+    display:inline-block;
+}
+
+td.pic{
+    width:1px; 
+    overflow:visible;
+    padding-right:10px;
 }

@@ -22,18 +22,16 @@ class PostsController < ApplicationController
         #binding.pry
         @post.user_id = current_user.id
 
-        parent_posts_id = @post.content.scan(/>>\d+/).join(' ').scan(/\d+/)
-        parent_posts_id.each do |parent_post_id|          
-            if parent_post = @thr.posts.find_by_id(parent_post_id)
-                parent_post.answers << @post unless parent_post.answers.include?(@post)
-                @post.content.sub!(">>#{parent_post_id}",  view_context.link_to(">>#{parent_post_id}", board_thr_path(@board, @thr, anchor: parent_post_id)))
-            end
-        end    
-        @post.content = nil if @post.content.scan(/\S/).size == 0
+           
         @post.save
         @thr.updated_at = @post.created_at unless (@post.sage || @thr.posts.count > @board.bumplimit)
         @thr.save
-        redirect_to [@thr.board, @thr]
+
+        respond_to do |format|
+            format.html { redirect_to [@thr.board, @thr] }
+            format.js
+        end
+        
         #binding.pry
     end 
 
@@ -48,7 +46,7 @@ class PostsController < ApplicationController
     end 
 
     def post_params
-        params.require(:post).permit(:content, :pic, :sage, :anon)
+        params.require(:post).permit(:content, :pic, :sage, :anon, :youtube_video)
     end  
 
     def render_404

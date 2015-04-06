@@ -3,6 +3,7 @@ gem 'kaminari'
 gem "paperclip", "~> 4.2"
 gem 'devise'
 gem 'heroku'
+gem 'jquery-turbolinks'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record

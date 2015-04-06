@@ -1,17 +1,21 @@
 <center><h2>New Thread</h2></center>
 
 <%= form_for([@board, @thr], html: {class: "form-horizontal", multipart: true}) do |f| %>
+
+
+
+
     <div class="form-group">
-        <%= f.label :title, class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_field :title, class: "form-control" %></div>
+        <%= f.label :title, class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_field :title, class: "form-control" %></div>
     </div>  
     <div class="form-group">
-        <%= label_tag :content, "Post", class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= text_area_tag :content, nil, class: "form-control", rows: "3" %></div> 
+        <%= label_tag :content, "Post", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= text_area_tag :content, nil, class: "form-control", rows: "3" %></div> 
     </div>  
 
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="col-sm-offset-3 col-sm-6">
         <div class="checkbox">
             <%= label_tag :anon, class: "checkbox" do %>    
               <%= check_box_tag :anon %>Anonymous
@@ -21,10 +25,15 @@
     </div>
 
     <div class="form-group">
-        <%= f.label "Pic", class: "col-sm-2 control-label" %>
-        <div class="col-sm-7">
+        <%= label_tag :youtube_video, "Youtube", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= text_field_tag :youtube_video, nil, class: "form-control" %></div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label "Pic", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6">
             <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;" ></div>
+                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 108px; height: 108px;" ></div>
                 <div>
                     <span class="btn btn-default btn-file">
                         <span class="fileinput-new">Select image</span>
@@ -38,7 +47,7 @@
     </div>
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
+        <div class="col-sm-offset-3 col-sm-6">
             <%= f.submit "Create Thread", class: "btn btn-primary" %>
     </div>  
 <% end %>   

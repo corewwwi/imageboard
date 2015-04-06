@@ -17,11 +17,11 @@ Rails.application.routes.draw do
   #   resources :products
 
   resources :boards do
-    resources :thrs do
-      resources :posts, except: [:destroy]
+    resources :thrs, except: [:index] do
+      resources :posts, only: [:new, :create]
      end 
   end  
-  resources :users
+  resources :users, only: [:index, :edit, :update]
   # Example resource route with options:
   #   resources :products do
   #     member do

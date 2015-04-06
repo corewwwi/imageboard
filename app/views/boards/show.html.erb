@@ -1,53 +1,66 @@
-<center><h2><%= @board.description %></h2></center>
-<%= paginate @thrs %><br>
+<center><h2><b><%= @board.description %></b></h2></center>
+<center><h4><%= @board.terms %></h4></center>
+
 <% if user_signed_in? %> 
-    <% if current_user.banned? %>
-        <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button", disabled: "disabled" %> 
-        <b><font color="red">You are banned!</font></b>
-    <% else %>
-        <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button" %> 
-    <% end %>      
+    <div align="center">
+        <% if current_user.banned? %>
+            <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button", disabled: "disabled" %> 
+           
+            <p class="text-danger"><b>You are banned!</b><p>
+        <% else %>
+            <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button" %> 
+        <% end %>  
+   </div>      
 <% end %>
-<br><br>
+<%= paginate @thrs %>
+
 <%- @thrs.each do |thr| %> 
 
-    <div class="panel panel-success">
+    <div class="panel panel-primary">
+        
         <div class="panel-heading">
-            <h3 class="panel-title"> 
-                <% thr.posts.where(op: true).each do |post|  %>
-                    <%= render partial: 'thrs/username', :locals => { post: post } %>
-                    <%= post.created_at %>
-                    #<%= post.id %>
-                <% end %>
-                
+            <h3 class="panel-title" align="center"> 
                 <%= link_to board_thr_path(@board, thr) do %> 
                     <b><%= thr.title %></b> 
                 <% end %>
+                <% if thr.bump_limit? %>
+                    <b>!Bumplimit!</b>
+                 <% end %>    
             </h3>
         </div>
 
         <div class="panel-body">
             <% thr.posts.where(op: true).each do |post|  %>
-                <table>
-                    <tr valign="top">
-                        <td><%= image_tag post.pic.url(:thumb) if post.pic_file_size %></td>
-                        <td class="content"><%= post.content.strip.gsub("\n",'<br>').html_safe %></td>
-                    </tr>
-                </table>        
+                <%= render partial: 'thrs/post', :locals => { post: post, thr: thr, board: @board } %>          
             <% end %>   
         </div>
 
         <div class="panel-footer">
+             
+            Ответов:
+            <span class="badge"><%= thr.child_posts_count %></span>
             <% if user_signed_in? && current_user.admin %> 
-                <%= link_to "Delete", board_thr_path(@board, thr), confirm: 'Are you sure?', method: :delete, class: "btn btn-danger", role: "button" %> 
-            <% end %> 
-            <em>Ответов:</em> 
-            <%= thr.child_posts_count %>                  
+                <%= link_to "Delete", board_thr_path(@board, thr), data: { confirm: 'Are you sure you want to delete thread "' + thr.title + '" ?'}, method: :delete, class: "btn btn-danger", role: "button" %> 
+                <%= link_to "Edit", edit_board_thr_path(@board, thr), class: "btn btn-success", role: "button" %>
+            <% end %>                
         </div>
 
     </div>
 <% end %>
-<% if @thrs.count == 0 %>
-    <center><h2>There are no Threads yet. You can <%= link_to "create", new_board_thr_path(@board)%> first!</h2></center>
-<% end %>    
 <%= paginate @thrs %>
+<% if @thrs.count == 0 %>
+    <div class="jumbotron">
+        <% if user_signed_in? %>
+            <% if current_user.banned? %>
+                <center><h2>There are no Threads yet.</h2></center>
+            <% else %>
+                <center><h2>There are no Threads yet. You can <%= link_to "create", new_board_thr_path(@board)%> first!</h2></center>
+            <% end %>    
+        <% else %>  
+             <center><h2>There are no Threads yet. <%= link_to "Login", new_user_session_path %> to create new!</h2></center> 
+        <% end %>     
+    </div>    
+<% end %>    
+
+
+

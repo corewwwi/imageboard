@@ -1,82 +1,27 @@
-<center><h2><%= @thr.title %></h2></center>
-
-<% n = 0 %>
+<center><h2><b><%= @thr.title %></b></h2></center>
+<% if user_signed_in? && current_user.admin %> 
+    <%= link_to "Delete", board_thr_path(@board, @thr), data: { confirm: 'Are you sure you want to delete thread "' + @thr.title + '" ?'}, method: :delete, class: "btn btn-danger", role: "button" %> 
+    <%= link_to "Edit", edit_board_thr_path(@board, @thr), class: "btn btn-success", role: "button" %>
+ <% end %>
+<% @post_number = 1 %>
 <%- @op_post.each do |post| %>
-    <div class="panel panel-primary" id="<%= post.id %>">
-
-        <div class="panel-heading">
-            <h3 class="panel-title" > 
-                №<%= n += 1 %>
-                <%= render partial: 'username', :locals => { post: post } %>
-                <%= post.created_at %>
-                #<%= post.id %>
-            </h3>
-        </div>
-
-        <div class="panel-body">
-            <table>
-                <tr valign="top">
-                    <td><%= image_tag post.pic.url(:thumb) if post.pic_file_size  %></td>
-                    <td class="content"><%= post.content.strip.gsub("\n",'<br>').html_safe %></td>
-                </tr>
-            </table>          
-        </div>
-              
-        <% if post.answers.count > 0 %>
-            <div class="panel-footer">
-                <em> Ответы: </em>
-                    <% post.answers.each do |answer| %>
-                    <%= link_to ">>#{answer.id}", board_thr_path(@board, @thr, anchor: answer.id) %>
-                <% end %>     
-            </div>
-        <% end %>        
-    </div>
+    <%= render partial: 'post', :locals => { post: post, thr: @thr, board: @board } %>
 <% end %>
 
-
-
 <%- @simple_posts.each do |post| %> 
-
-    <% if post.sage %>
-        <div class="panel panel-danger" id="<%= post.id %>">
-    <% else %>    
-        <div class="panel panel-success" id="<%= post.id %>">
-    <% end %>    
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                №<%= n += 1 %>
-                <%= render partial: 'username', :locals => { post: post } %> 
-                <%= post.created_at %>
-                #<%= post.id %>
-            </h3>
-        </div>
-
-        <div class="panel-body">
-            <table>
-                <tr valign="top">
-                    <td>
-                        <%= image_tag post.pic.url(:thumb) if post.pic_file_size  %>
-                    </td>
-                    <td class="content">    
-                        <%= post.content.strip.gsub("\n",'<br>').html_safe %>
-                    </td>
-                </tr>
-            </table>        
-        </div>
-              
-        <% if post.answers.count > 0 %>
-            <div class="panel-footer">
-                <em> Ответы: </em>
-                    <% post.answers.each do |answer| %>
-                    <%= link_to ">>#{answer.id}", board_thr_path(@board, @thr, anchor: answer.id) %>
-                <% end %>     
-            </div>
-        <% end %>  
-    </div>
+    <%= render partial: 'post', :locals => { post: post, thr: @thr, board: @board } %>       
 <% end %>
 
 <% if user_signed_in? %>
-    <%= render "posts/form" %>     
+    <center><%= link_to "New Post", 'javascript:;', id: "show_form", class: "btn btn-success", role: "button" %></center>
+    <div class="form" id="post_form">
+        <%= render "posts/form" %> 
+    </div> 
+    <br> 
 <% else %>
-    <center><h2>Login to create post, pls.</h2></center>  
-<% end %>      
+    <div class="jumbotron">
+    <center><h2>Login to create post, pls.</h2></center> 
+    </div> 
+<% end %>   
+
+

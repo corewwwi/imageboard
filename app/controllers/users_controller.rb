@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :get_user, only: [:edit, :update] 
+    before_action :get_user, only: [:edit, :update] 
     before_action :authenticate_user!
     before_action do 
         render_404 unless current_user.admin?
@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     
 
     def index
-        @users = User.all
+        @users = User.all.order(created_at: :desc)
     end
 
     def edit
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     end
     
     def update
-    	if @user.update(user_params)
+        if @user.update(user_params)
             redirect_to users_path
         else
             render action: "edit"
@@ -25,12 +25,12 @@ class UsersController < ApplicationController
     private
 
     def get_user
-    	@user = User.find(params[:id])
-    end	
+        @user = User.find(params[:id])
+    end 
 
     def user_params
-    	params.require(:user).permit(:email, :banned, :admin)
-    end	
+        params.require(:user).permit(:username, :banned, :admin)
+    end 
 
     def render_404
         render file: "#{Rails.root}/public/404.html", layout: false, status: 404

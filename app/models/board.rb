@@ -11,4 +11,5 @@ class Board < ActiveRecord::Base
                                             message: "Bumplimit limit must be greater than 0!"}  
                                                                                   
 
+
 end

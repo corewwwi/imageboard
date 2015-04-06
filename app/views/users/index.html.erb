@@ -1,5 +1,7 @@
+<center><h2><b>Users List</b></h2></center>
 <table style="width:100%" class="table">
     <tr>
+        <th>Username</th>
         <th>Email</th>
         <th>Created</th>
         <th>Sign in</th>
@@ -8,15 +10,16 @@
         <th></th>
         
     </tr>   
-    <% @users.order(created_at: :desc).each do |user| %>
+    <% @users.each do |user| %>
 
         <tr class="<%= "danger" if user.banned %>" >
-            <td><b><%= user.email %><%= " <em>(admin)</em>".html_safe if user.admin %><b></td>
+            <td><b><%= user.username %><%= " (admin)".html_safe if user.admin %><b></td>
+            <td><%= user.email %></td>
             <td><%= user.created_at %></td>
             <td><%= user.sign_in_count %></td>
             <td><%= user.last_sign_in_at %></td>
-            <td><%= "<b>Bunned</b>".html_safe if user.banned %></td>
-            <td><%= link_to "Edit", edit_user_path(user), class: "btn btn-success", role: "button"  %></td>
+            <td><%= "<b>BANNED</b>".html_safe if user.banned %></td>
+            <td><%= link_to "Edit", edit_user_path(user) %></td>
         </tr>       
     <% end %>
 <table>

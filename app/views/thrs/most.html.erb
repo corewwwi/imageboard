@@ -1,50 +1,61 @@
 <div class="jumbotron">
-  <h1>Imageboard</h1>
-  <% if user_signed_in? %>
-    <p>Welcome back <%= current_user.email %>!</p>
-  <% else %>
-    <p>Welcome abord!</p>
-    <p><%= link_to "Sign up", new_user_registration_path, class: "btn btn-success", role: "button" %>
-      <%= link_to "Login", new_user_session_path, class: "btn btn-success", role: "button" %>
-    </p>
-  <% end %>  
+    <h1>Imageboard</h1>
+    <% if user_signed_in? %>
+        <p>Welcome back <%= current_user.username %>!</p>
+    <% else %>
+        <p>Welcome abord!</p>
+        <p><%= link_to "Sign up", new_user_registration_path, class: "btn btn-success", role: "button" %>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-success", role: "button" %></p>
+    <% end %> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="//www.youtube.com/embed/JjAdfDrh8v0"></iframe>
+            </div>  
+        </div>
+        <div class="col-md-6">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="//www.youtube.com/embed/-RqqXT44veI"></iframe>
+            </div>  
+        </div>
+    </div>  
 </div>  
 
 <center><h2>Updated Threads</h2></center><br>
 
 <%- @thrs.each do |thr| %> 
 
-    <div class="panel panel-success">
+     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"> 
-              <%= render partial: 'username', :locals => { post: thr.posts.first } %>   
-              <%= thr.posts.first.created_at %>
-              #<%= thr.posts.first.id %>  
-              <%= link_to board_thr_path(thr.board, thr) do %> 
-                <b><%= thr.title %></b> 
-              <% end %>  
-              from: 
-               <%= link_to board_path(thr.board) do %>
-                <b><%= thr.board.name %></b>
-              <% end %> 
-              
+            <h3 class="panel-title" align="center"> 
+                <b>/</b>
+                <%= link_to board_path(thr.board) do %> 
+                    <b><%= thr.board.name %></b> 
+                <% end %>
+                <b>/</b>
+                <%= link_to board_thr_path(thr.board, thr) do %> 
+                    <b><%= thr.title %></b> 
+                <% end %>
+                <% if thr.bump_limit? %>
+                    <b>!Bumplimit!</b>
+                <% end %>
             </h3>
         </div>
+
         <div class="panel-body">
-          <table>
-            <tr valign="top">
-              <td><%= image_tag thr.posts.first.pic.url(:thumb) if thr.posts.first.pic_file_size %></td>
-              <td class="content"><%= thr.posts.first.content.strip.gsub("\n",'<br>').html_safe %></td>  
-            </tr>
-          </table>    
+            <% thr.posts.where(op: true).each do |post|  %>
+                <%= render partial: 'thrs/post', :locals => { post: post, thr: thr, board: thr.board } %>          
+            <% end %>   
         </div>
 
         <div class="panel-footer">
-           
-            <em>Ответов:</em> 
-            <%= thr.child_posts_count %>                  
+            Answers:
+            <span class="badge"><%= thr.child_posts_count %></span>
+            <% if user_signed_in? && current_user.admin %> 
+                <%= link_to "Delete", board_thr_path(thr.board, thr), data: { confirm: 'Are you sure you want to delete thread "' + thr.title + '" ?'}, method: :delete, class: "btn btn-danger", role: "button" %> 
+                <%= link_to "Edit", edit_board_thr_path(thr.board, thr), class: "btn btn-success", role: "button" %>
+            <% end %>                
         </div>
-
     </div>
-
 <% end %>
+

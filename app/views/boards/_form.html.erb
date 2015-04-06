@@ -1,27 +1,28 @@
 <%= form_for(@board, html: {class: "form-horizontal"}) do |f| %>    
     <div class="form-group">
-        <%= f.label :name, class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_field :name, class: "form-control" %></div>
+        <%= f.label :name, class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_field :name, class: "form-control" %></div>
     </div>  
     <div class="form-group">
-        <%= f.label :pages_limit, class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_field :pages_limit, class: "form-control" %></div>
+        <%= f.label :pages_limit, class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_field :pages_limit, class: "form-control" %></div>
     </div>  
     <div class="form-group">
-        <%= f.label :bumplimit, class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_field :bumplimit, class: "form-control" %></div>
+        <%= f.label :bumplimit, class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_field :bumplimit, class: "form-control" %></div>
     </div>  
     <div class="form-group">
-        <%= f.label :description, class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_area :description, class: "form-control", rows: "3" %></div>
+        <%= f.label :description, class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_area :description, class: "form-control", rows: "3" %></div>
     </div>  
     <div class="form-group">
-        <%= f.label :terms, class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_area :terms, class: "form-control", rows: "3" %></div>
+        <%= f.label :terms, class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_area :terms, class: "form-control", rows: "3" %></div>
     </div>  
 
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
+        <div class="col-sm-offset-3 col-sm-6">
             <%= f.submit "Create Board", class: "btn btn-primary" %>
     </div>
 <% end %>
+
