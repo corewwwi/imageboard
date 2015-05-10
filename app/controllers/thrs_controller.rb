@@ -10,6 +10,7 @@ class ThrsController < ApplicationController
         render_404 if current_user.banned?
     end
 
+
     def most
         @thrs = Thr.all.order(updated_at: :desc).limit(10)
     end    
@@ -19,32 +20,29 @@ class ThrsController < ApplicationController
     end 
 
     def show
-        @posts = @thr.posts
-        @simple_posts = @posts.simple_posts.order(:created_at)
-        @op_post = @posts.op_post
+        @posts = @thr.posts.order(:created_at)
         @post = Post.new
     end 
 
     def new
         @thr = Thr.new
+        @thr.posts.build
     end 
     
     def create
-        @thr = Thr.new(thr_params)
+        @thr = Thr.new(params[:thr].permit(:title, posts_attributes: [:content, :pic, :anon, :youtube_video, :user_id]))
         @thr.board_id = @board.id
-        
+        @thr.user_id = current_user.id
 
-        @post = Post.new(params.permit(:content, :pic, :anon, :youtube_video))
+        #@post = Post.new(params[:post].permit(:content, :pic, :anon, :youtube_video))
         
-        @post.user_id = current_user.id
-        @post.op = true
-        @post.content = nil if @post.content.scan(/\S/).size == 0
+        #@post.user_id = current_user.id
         
-        if @thr.save_with_post(@post) 
+        if @thr.save#_with_post(@post) 
             flash[:notice] = "Thread successfully created"
             redirect_to [@board, @thr]
         else
-            render action: 'new'    
+            render action: 'new'
         end     
     end 
 
@@ -78,7 +76,7 @@ class ThrsController < ApplicationController
     end    
 
     def get_board
-        @board = Board.find(params[:board_id])
+        @board = Board.find_by(name: params[:board_name])
     end   
 
     def get_thr

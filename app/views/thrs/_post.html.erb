@@ -1,82 +1,43 @@
-
-<% if post.sage %>
-    <div class="panel panel-danger" id="<%= post.id %>">
-<% else %>    
-    <div class="panel panel-success" id="<%= post.id %>">
-<% end %> 
-
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            <% if post.op %>
-                №1
-            <% else%>
-                №<%= @post_number += 1 %>
-            <% end %>   
+<div style="padding-top:55px;margin-top:-55px;" id="<%= post.id %>">
+<div class="panel <%= post.sage? ? 'panel-danger': 'panel-success' %> post_panel" >
+    <div class="panel-heading clearfix">
+        <div class="pull-right">
+            <%= link_to 'Reply', '#', class: ( post.sage? ? 'btn btn-danger btn-xs get_answer': 'btn btn-success btn-xs get_answer' ), data: { post_id: ">>#{post.id}" }, role: "button"  if user_signed_in? %>
+        </div>
+        <h3 class="panel-title" style="padding-top: 2px;">
+            №<%= number %> &nbsp;
             <% unless post.anon %>
-                <% if post.user.admin %>
-                    <b>Admin</b>
+                <% if post.user.admin? %>
+                    <b>ADMIN</b>
                 <% else %>
                     <%= post.user.username %>  
                 <% end %>
             <% else %>
                 <% if user_signed_in? && current_user.admin? %>
-                    <% if post.user.admin %>
-                        <b>Anonymous (admin)</b>
-                    <% else %>
-                        Anonymous (<%= post.user.username %>)</em> 
-                    <% end %>
+                    <b>Anonymous (<%= post.user.username %>)</b>
                 <% else %>
                     Anonymous    
                 <% end %>
-            <% end %>  
-            <%= post.created_at.to_formatted_s(:short) %>
-            
-            #<%= post.id %>
-               
-            <%= link_to 'javascript:;', class: "get_answer", id: ">>#{post.id}" do %>
-                Answer
-            <% end %>
+            <% end %> &nbsp; 
+            <%= post.created_at.strftime("%d %b %Y %H:%M:%S") %> &nbsp;
+            <%= link_to '#', class: 'get_answer', data: { post_id: ">>#{post.id}" } do %>
+                <b>#<%= post.id %></b>
+            <% end %> &nbsp; 
+            <%= 'Sage!' if post.sage? %>
         </h3>
     </div>
 
     <div class="panel-body">
-        <table class="post" width="100%">
-            <tr valign="top">
-                <% if post.pic.file? %>
-                    <td class="pic" >
-                        <%= link_to "javascript:;", class: "img-thumbnail" do %>
-                            <%= image_tag post.pic.url(:small), data: { pic: "show" } %>
-                            <%= image_tag post.pic.url(:medium), data: { pic: "hide" }, style: "display: none" %>
-                        <% end %>
-                    </td>
-                <% end %>  
-                <td class="content" width="100%" > 
-                    <% parent_posts_id = post.content.scan(/>>\d+/).join(' ').scan(/\d+/) %>
-                    <% parent_posts_id.each do |parent_post_id| %> 
-                        <% post.content.sub!(">>#{parent_post_id}", link_to(">>#{parent_post_id}", board_thr_path(@board, @thr, anchor: parent_post_id))) %>
-                    <% end %>   
-
-                    <%= post.content.strip.gsub("\n",'<br>').html_safe %>
-                </td>
-
-                <% if post.youtube_video? %>
-                    <td class="youtube_video">
-                        <div class="embed-responsive embed-responsive-4by3">
-                            <%= post.youtube_embed.html_safe %>
-                        </div>  
-                    </td>  
-                <% end %> 
-            </tr>
-        </table>
+        <%= render partial: 'thrs/post_content', :locals => { post: post, thr: thr, board: board } %>
     </div>
-              
-    <% if post.answers.count > 0 %>
-        <div class="panel-footer">
+
+    
+    
+        <div class="panel-footer" style="<%= 'display:none;' if post.answers.blank? %>">   
             <em> Answers: </em>
             <% post.answers.each do |answer| %>
-                <%= link_to ">>#{answer.id}", board_thr_path(board, thr, anchor: answer.id) %>
-            <% end %>     
-        </div>
-    <% end %>  
+                <%= link_to ">>#{answer.id}", board_thr_path(board, thr, anchor: answer.id), data: { anchor: answer.id }, class: 'post_anchor' %>
+            <% end %>  
+        </div>         
 </div>
-
+</div>

@@ -1,6 +1,14 @@
-<h2><center> Edit Board </center></h2>
+<% @page_title = 'Edit User' %>
+<h2><center> Edit User </center></h2>
 
 <%= form_for([@user], html: {class: "form-horizontal", multipart: true }) do |f| %>
+
+  <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <%= error_messages_for(@user) %>
+        </div>
+    </div>
+
     <div class="form-group">
         <%= f.label :username, class: "col-sm-4 control-label" %>
         <div class="col-sm-4">
@@ -9,24 +17,32 @@
     </div>
 
     <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-4">
-            <div class="checkbox">
-                <%= f.label :admin, class: "checkbox" do %>    
-                    <%= f.check_box :admin %>Admin
-                <% end %>            
-            </div>
-        </div>    
-    </div> 
-
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-4">
-            <div class="checkbox">
-                <%= f.label :banned, class: "checkbox" do %>    
-                    <%= f.check_box :banned %>Ban
-                <% end %>            
-            </div>
-        </div>    
-    </div> 
+    <div class="col-sm-offset-4 col-sm-4">
+      <div class="radio">
+        <%= f.label :status, class: "radio_button", for: 'book_status_not_readed' do %>
+            <%= f.radio_button :status, :user %> User
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-4">
+      <div class="radio">
+        <%= f.label :status, class: "radio_button", for: 'book_status_read_now' do %>
+            <%= f.radio_button :status, :banned %> Banned
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-4">
+      <div class="radio">
+        <%= f.label :status, class: "radio_button", for: 'book_status_readed' do %>
+            <%= f.radio_button :status, :admin %> Admin
+        <% end %>
+      </div>
+    </div>
+  </div>
 
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4">

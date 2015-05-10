@@ -1,0 +1,31 @@
+<table class="post" width="100%">
+    <tr valign="top">
+        <% if post.pic.file? %>
+            <td class="pic">
+                <span style='font-size:12px;'>
+                    <%= link_to post.pic.url(:original) do %>
+                        <%= post.pic_file_name %>
+                    <% end %>  
+                    <%= number_to_human_size(post.pic_file_size) %>  
+                </span>
+                <div id="pic">
+                    <%= link_to "#", class: "img-thumbnail" do %>
+                        <%= image_tag post.pic.url(:medium), data: { pic: "hide" }, class: 'small_pic' %>
+                    <% end %>
+                </div>
+            </td>
+        <% else %>
+        	<% if post.youtube_video? %>
+            	<td class="youtube_video">
+                	<div class="embed-responsive embed-responsive-4by3">
+                    	<%= post.youtube_embed.html_safe %>
+                	</div>  
+            	</td>  
+        	<% end %>    
+        <% end %>  
+        <td class="content" width="100%" >                         
+            <%= sanitize(simple_format(parent_posts_in_content_to_links(post).content.strip)) %>
+        </td> 
+    </tr>
+</table>
+   

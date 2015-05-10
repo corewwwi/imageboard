@@ -1,0 +1,18 @@
+$('#post_error').html("<%= j render partial: 'application/error_messages', :locals => { object: @post } %>"); // render form errors
+$("<%= j render partial: 'thrs/post', :locals => { post: @post, thr: @thr, board: @board, number: @thr.posts.count } %>").hide().appendTo('#posts').fadeIn(500); // render new post
+
+<% @parent_posts_id = Array.new %>
+<% @post.parent_posts.each do |parent_post| %>
+	<%= @parent_posts_id << parent_post.id %>
+<% end %>	
+var parentPosts = <%= raw @parent_posts_id %>;
+
+<% @parent_posts_id.each_with_index do |parent_post_id, index| %>
+	postAnswers	= $('#' + parentPosts[<%= index %>]).find(".panel-footer");
+	if ( postAnswers.css('display') == 'none' ){ 
+    	postAnswers.show();
+	} 
+  	postAnswers.html("<%= j render partial: 'thrs/post_answers', :locals => { post: Post.find(parent_post_id) } %>"); // render answers in parent posts
+<% end %>
+
+$('#new_post')[0].reset(); //reset form

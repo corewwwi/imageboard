@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require bootstrap
+//= require jquery-ui
+//= require jquery.form
+//= require bootstrap-sprockets
+//= require jasny-bootstrap
 //= require turbolinks
 //= require_tree .

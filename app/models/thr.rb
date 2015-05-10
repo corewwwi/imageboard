@@ -2,27 +2,26 @@ class Thr < ActiveRecord::Base
     belongs_to :board
     belongs_to :user
     has_many :posts, dependent: :destroy 
- 
-    validates :title, length: { in: 1..70,
-                                message: "Title must have 1..70 characters!" }
-    
-    #before_create :set_op 
 
+    accepts_nested_attributes_for :posts
+ 
+    validates :title, presence: true,
+                      length: { maximum: 70 }
+    
     before_destroy :delete_pic
 
-    paginates_per 3
+    scope :op_post, -> { posts.order(:created_at).first }
 
-    def child_posts_count
-    	self.posts.count - 1
-    end	
-
-    def save_with_post(post)
-        Thr.transaction do
-            save!
-            post.thr = self
-            post.save!
-        end  
-    end
+    # for save thr without nested attributes
+    # def save_with_post(post)
+    #     Thr.transaction do
+    #         save!
+    #         post.thr = self
+    #         post.save!
+    #     end
+    # rescue => e
+    #     false
+    # end
 
     def delete_pic
         self.posts.each do |post| 

@@ -1,0 +1,26 @@
+e24a824 HEAD@{0}: checkout: moving from pic to e24a824
+e24a824 HEAD@{1}: checkout: moving from e24a8246d77351064d4c8199949c6119bc579a98 to pic
+e24a824 HEAD@{2}: checkout: moving from pic to e24a824
+e24a824 HEAD@{3}: reset: moving to HEAD@{1}
+5dd0e87 HEAD@{4}: reset: moving to HEAD~1
+e24a824 HEAD@{5}: rebase -i (finish): returning to refs/heads/pic
+e24a824 HEAD@{6}: checkout: moving from pic to e24a824
+e24a824 HEAD@{7}: commit: Add AJAX posting, some JS, FAQ, errors messages, bootstrap gem, youtube link validation, change UI, media content, users manegment + refactoring
+5dd0e87 HEAD@{8}: commit: Add username, youtube video to post, deleting pic, some JS (show form, show bigger pic, post.id in content field), some bootstrap to devise, move logic to models
+1455bc4 HEAD@{9}: commit: Add transaction for saving thread with op post, deleting blank string and some refactoring
+bc5766a HEAD@{10}: commit: Add number of post in thread
+4571208 HEAD@{11}: commit: Add admin authenticate and user identification partial
+047d6d9 HEAD@{12}: commit: Add banned to users and edit action
+54357a8 HEAD@{13}: commit: Add bootstrap for pagination, word-break
+a786408 HEAD@{14}: commit: Substitution post.id string to link with post.id anchor
+4185adf HEAD@{15}: commit: Some fix
+f6ae786 HEAD@{16}: commit: Fix authorization bug
+9b08c43 HEAD@{17}: commit: Add some gems (devise, paperclip, kaminari), features (sage, anon, bumplimit, automatic deleting) and bootstrap
+c5808d1 HEAD@{18}: checkout: moving from master to pic
+c5808d1 HEAD@{19}: commit: Configured for deployment to Heroku
+70f0eba HEAD@{20}: commit: Add some actions and forms
+e3941bf HEAD@{21}: commit: Add controllers and views for Threads (Thrs) and Posts
+19e3434 HEAD@{22}: commit (amend): Add models with verifications
+c30abeb HEAD@{23}: reset: moving to c30abeb3bbc35381c4640dd44ea1e239a3ce9b7b
+82c03b5 HEAD@{24}: commit (amend): Add models with verifications
+c30abeb HEAD@{25}: commit (initial): Add models with validations

@@ -1,0 +1,158 @@
+<% @page_title = "FAQ" %>
+<h2><center>FAQ</center></h2>
+<ul style='list-style-type: none;'>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>What is Imageboard?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		<b>Imageboard</b> is a simple image-based bulletin board where anyone can post comments and share images. Different boards are dedicated to different topics, from programming, to movies, music, and hobby. You can view the discussion on 7chan without registration. However, you must have an account to join the discussion. Registration is free and open to everyone.
+		</div>
+   	</li>
+   	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>What should I know before I post?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		Users are encouraged to participate actively in our community, but only after they have familiarized themselves with the rules and this FAQ. Breaking the rules may result in post deletion, a temporary ban, or in some cases, permanent banishment. Understand the rules before you begin posting!
+		</div>
+  	</li>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>How do I post anonymously?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		To post as "Anonymous", simply click on field "Anonymous" when submitting content: 
+	  			<form>
+	  			<div class="checkbox">
+    				<label>
+      					<input type="checkbox"> Anonymous
+    				</label>
+  				</div>
+  			</form>
+	  		Username will be viewable only to the administrators.
+		</div>
+  	</li>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>Can I post image or video?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		Yes, you can attach to your post picture or video from youtube. Simply choose in form:
+  			<form>
+	            <div class="btn-group" role="group" >
+	                <button type="button" class="btn btn-default">Image</button>
+	                <button type="button" class="btn btn-default">Video</button>
+	            </div> 
+		    </form>
+		</div>
+  	</li>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>How do I reply to post?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		To link to and highlight an entire post, place two pointers in front of its unique post number (ex. ">>210981") or simply click <button type="button" class="btn btn-success btn-xs">Reply</button> or the post number (ex. <b>#210981</b>) you'd like to reference.
+		</div>
+  	</li>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>What is "Sage"?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		Threads on the board page are sorted by time of last reply. Each reply move thread to the top (bump). Entering "Sage" into the field while replying will cause the thread not to bump to the top of the page.
+  			
+  			<div class="checkbox">
+				<label>
+  					<input type="checkbox"> Sage
+				</label>
+			</div>
+			Normal post:
+			<br>
+			<div class="panel panel-success">
+				<div class="panel-heading clearfix">
+    				<div class="pull-right">
+        				<%= content_tag(:a, 'Reply', class: 'btn btn-success btn-xs', role: "button") %>
+    				</div>
+    				<h3 class="panel-title" style="padding-top: 2px;">
+        				№25 &nbsp; Ivan &nbsp; 28 Apr 2015 20:39:01 &nbsp;
+        				<%= link_to '#' do %>
+            				<b>#2353</b> 
+            			<% end %>
+    				</h3>
+				</div>
+			</div>
+			Post with Sage:
+			<div class="panel panel-danger">
+				<div class="panel-heading clearfix">
+    				<div class="pull-right">
+        				<%= content_tag(:a, 'Reply', class: 'btn btn-danger btn-xs', role: "button") %>
+    				</div>
+    				<h3 class="panel-title" style="padding-top: 2px;">
+        				№46 &nbsp; Anonymous &nbsp; 28 Apr 2015 20:43:23 &nbsp;
+        				<%= link_to '#' do %>
+            				<b>#2378</b> 
+            			<% end %> &nbsp; 
+            			Sage!
+    				</h3>
+				</div>
+			</div>
+		</div>		
+  	</li>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>What is "Bumplimit"? Why won't my thread bump?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		All threads have a set bumplimit (varies board to board). When this limit is reached, a thread will no longer "bump" to the top of the board, causing the thread to descend through the pages until it is marked for deletion and pruned. This method of post-limiting, while sometimes inconvenient, assures that content is kept fresh on the boards.
+	  		<br><br>
+	  		Thread without Bumplimit:
+			<div class="panel panel-info">
+				<div class="panel-heading clearfix">
+    				<h3 class="panel-title">
+        				Petro &nbsp; 28 Apr 2015 21:20:04 &nbsp; 
+        				<%= link_to '#' do %>
+        					<b>Music thread</b>
+        				<% end %>	
+    				</h3>
+				</div>
+			</div>
+			Thread with Bumplimit:
+			<div class="panel panel-default">
+				<div class="panel-heading clearfix">
+    				<h3 class="panel-title">
+        				Mykola &nbsp; 28 Apr 2015 20:39:01 &nbsp; 
+        				<%= link_to '#' do %>
+        					<b>Movies thread (bumplimit)</b>
+        				<% end %>	
+    				</h3>
+				</div>
+			</div>
+		</div>
+  	</li>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>How do I know if I am banned?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		If you're banned you will see message <b class="text-danger">You are banned!</b> when trying to post or create new thread.
+		</div>
+  	</li>
+  	<li>
+	  	<h4>
+	  		<i class="glyphicon glyphicon-flash"></i> 
+	  		<b><i>Can I retrieve an old post/image?</i></b>
+	  	</h4>
+	  	<div class='well well-sm'>
+	  		No. Content that has expired is removed from our servers.
+		</div>
+  	</li>
+</ul>

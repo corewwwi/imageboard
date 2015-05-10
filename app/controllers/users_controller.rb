@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :get_user, only: [:edit, :update] 
+    before_action :get_user, only: [:show, :update, :edit, :show_thrs, :show_posts] 
     before_action :authenticate_user!
     before_action do 
         render_404 unless current_user.admin?
@@ -10,6 +10,26 @@ class UsersController < ApplicationController
         @users = User.all.order(created_at: :desc)
     end
 
+    def show
+       
+    end
+
+    def show_thrs
+        @thrs = @user.thrs.order(created_at: :desc)
+        respond_to do |format|
+            format.html
+            format.js 
+        end
+    end
+    
+    def show_posts
+        @posts = @user.posts.order(created_at: :desc).page(params[:page]).per(20)
+        respond_to do |format|
+            format.html
+            format.js 
+        end
+    end    
+        
     def edit
 
     end
@@ -29,7 +49,7 @@ class UsersController < ApplicationController
     end 
 
     def user_params
-        params.require(:user).permit(:username, :banned, :admin)
+        params.require(:user).permit(:username, :status)
     end 
 
     def render_404

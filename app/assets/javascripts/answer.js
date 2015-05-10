@@ -1,10 +1,15 @@
 $(document).ready(function() {
-   $('.get_answer').click(function() {
-        var parentPost = $(this).attr('id');
+   $('body').on('click', '.get_answer', function(e) {
+   		e.preventDefault();
+        var parentPost = $(this).attr('data-post-id');
         var input = $('#content');
         $('.form').show();
-        input.val(parentPost + '\n' + input.val() );
-        $('html,body').animate({'scrollTop' : $('#post_form').offset().top},200);
-        return false;
+        if ( input.val() === "" ){
+        	input.val( parentPost + '\n' );
+        } else {
+        	input.val(input.val() + parentPost + '\n' );
+        }
+        $('html,body').animate({'scrollTop' : $('#post_form').offset().top}, 200);
+        
     });
 });

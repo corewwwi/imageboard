@@ -1,25 +1,37 @@
+<% @page_title = 'Users List' %>
 <center><h2><b>Users List</b></h2></center>
 <table style="width:100%" class="table">
+    <thead>
     <tr>
+        <th>№</th>
         <th>Username</th>
         <th>Email</th>
-        <th>Created</th>
-        <th>Sign in</th>
-        <th>Last sign in</th>
+        <th>Sign Up</th>
+        <th>Sign in count</th>
+        <th>Last sign in at</th>
         <th >Status</th>
         <th></th>
         
-    </tr>   
-    <% @users.each do |user| %>
+    </tr>
+    </thead>
+    <tbody>   
+    <% @users.each_with_index do |user, index| %>
 
-        <tr class="<%= "danger" if user.banned %>" >
-            <td><b><%= user.username %><%= " (admin)".html_safe if user.admin %><b></td>
-            <td><%= user.email %></td>
-            <td><%= user.created_at %></td>
-            <td><%= user.sign_in_count %></td>
-            <td><%= user.last_sign_in_at %></td>
-            <td><%= "<b>BANNED</b>".html_safe if user.banned %></td>
-            <td><%= link_to "Edit", edit_user_path(user) %></td>
+        <tr class="<%= "danger" if user.banned? %>" >
+            <td class="vert-align"><%= index + 1 %></td>
+            <td class="vert-align">
+                <%= link_to user do %>
+                    <b><%= user.username %><b>
+                <% end %>        
+            </td>
+            <td class="vert-align"><%= user.email %></td>
+            <td class="vert-align"><%= user.created_at.strftime("%d %b %Y %H:%M:%S") %></td>
+            <td class="vert-align"><%= user.sign_in_count %></td>
+            <td class="vert-align"><%= user.last_sign_in_at.strftime("%d %b %Y %H:%M:%S") if user.last_sign_in_at %></td>
+            <td class="vert-align"><%= user.status %></td>
+            <td class="vert-align"><%= link_to "Edit", edit_user_path(user), class: "btn btn-default", role: "button" %></td>
+            
         </tr>       
     <% end %>
-<table>
+    </tbody>
+</table>

@@ -21,24 +21,27 @@ class PostsController < ApplicationController
         @post.thr_id = @thr.id
         #binding.pry
         @post.user_id = current_user.id
-
            
-        @post.save
-        @thr.updated_at = @post.created_at unless (@post.sage || @thr.posts.count > @board.bumplimit)
-        @thr.save
-
-        respond_to do |format|
-            format.html { redirect_to [@thr.board, @thr] }
-            format.js
-        end
-        
-        #binding.pry
+        if @post.save
+            @thr.updated_at = @post.created_at unless (@post.sage || @thr.posts.count > @board.bumplimit)
+            @thr.save
+            respond_to do |format|
+                format.html { redirect_to [@thr.board, @thr] }
+                format.js { render :show }
+                #format.json { render json: { post: @post.to_json } } 
+            end
+        else
+            respond_to do |format|
+                format.html { render action: 'new' }
+                format.js { render :show_error }
+            end    
+        end    
     end 
 
     private
 
     def get_board
-        @board = Board.find(params[:board_id])
+        @board = Board.find_by(name: params[:board_name])
     end
 
     def get_thr

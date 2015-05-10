@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
     before_action :get_board, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!, except: [:show]
     before_action  except: [:show]  do 
-        render_404 unless current_user.admin     
+        render_404 unless current_user.admin?     
     end
     
     def index
@@ -49,7 +49,7 @@ class BoardsController < ApplicationController
     private
 
     def get_board
-        @board = Board.find(params[:id])
+        @board = Board.find_by(name: params[:name])
     end 
 
     def board_params

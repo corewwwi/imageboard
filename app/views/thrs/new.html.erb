@@ -1,50 +1,70 @@
+<% @page_title = 'New Thread' %>
 <center><h2>New Thread</h2></center>
 
+
+
 <%= form_for([@board, @thr], html: {class: "form-horizontal", multipart: true}) do |f| %>
-
-
-
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <%= error_messages_for(@thr) %>
+        </div>
+    </div> 
 
     <div class="form-group">
         <%= f.label :title, class: "col-sm-3 control-label" %>
         <div class="col-sm-6"><%= f.text_field :title, class: "form-control" %></div>
-    </div>  
-    <div class="form-group">
-        <%= label_tag :content, "Post", class: "col-sm-3 control-label" %>
-        <div class="col-sm-6"><%= text_area_tag :content, nil, class: "form-control", rows: "3" %></div> 
-    </div>  
+    </div> 
 
-    <div class="form-group">
-      <div class="col-sm-offset-3 col-sm-6">
-        <div class="checkbox">
-            <%= label_tag :anon, class: "checkbox" do %>    
-              <%= check_box_tag :anon %>Anonymous
-            <% end %>            
+    <%= f.fields_for :posts do |ff| %> 
+
+        <%= ff.hidden_field(:user_id, value: current_user.id) %>
+
+        <div class="form-group">
+            <%= ff.label :content, "Comment", class: "col-sm-3 control-label" %>
+            <div class="col-sm-6"><%= ff.text_area :content, class: "form-control", rows: "3" %></div> 
+        </div>  
+
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-6">
+                <div class="checkbox">
+                    <%= ff.label :anon, "Anonymous", class: "checkbox" do %>    
+                        <%= ff.check_box :anon %>Anonymous
+                    <% end %>            
+                </div>
+            </div>    
         </div>
-      </div>    
-    </div>
 
-    <div class="form-group">
-        <%= label_tag :youtube_video, "Youtube", class: "col-sm-3 control-label" %>
-        <div class="col-sm-6"><%= text_field_tag :youtube_video, nil, class: "form-control" %></div>
-    </div>
-
-    <div class="form-group">
-        <%= f.label "Pic", class: "col-sm-3 control-label" %>
-        <div class="col-sm-6">
-            <div class="fileinput fileinput-new" data-provides="fileinput">
-                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 108px; height: 108px;" ></div>
-                <div>
-                    <span class="btn btn-default btn-file">
-                        <span class="fileinput-new">Select image</span>
-                        <span class="fileinput-exists">Change</span>
-                        <%= file_field_tag :pic %>
-                    </span>
-                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-6">
+                <div class="btn-group" role="group" id='media'>
+                    <button type="button" class="btn btn-default" id='image'>Image</button>
+                    <button type="button" class="btn btn-default" id='video'>Video</button>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="form-group" id='youtube_video_form' style='display:none;'>
+            <%= ff.label :youtube_video, "Youtube link", class: "col-sm-3 control-label" %>
+            <div class="col-sm-6"><%= ff.text_field :youtube_video, class: "form-control" %></div>
+        </div>
+
+        <div class="form-group" id='pic_form' style='display:none;'>
+            <%= ff.label :pic, "Image", class: "col-sm-3 control-label" %>
+            <div class="col-sm-6">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 108px; height: 108px;" ></div>
+                    <div>
+                        <span class="btn btn-default btn-file">
+                            <span class="fileinput-new">Select image</span>
+                            <span class="fileinput-exists">Change</span>
+                        <%= ff.file_field :pic %>
+                        </span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">

@@ -12,5 +12,50 @@
  *
  *= require_tree .
  *= require_self
- *= require bootstrap
+ *= require jasny-bootstrap
+ *= require jquery-ui
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+	margin: 70px 0 75px;
+	height:100%;
+}
+
+/*error_messases*/
+#error_explanation {
+  padding-top: 15px;
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 15px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+.post_panel{
+    margin-bottom: 5px;
+}
+
+.footer {
+	margin-bottom: 0;
+	 position: absolute;
+	 bottom: 0;
+	 width: 100%;
+}
+
+
+

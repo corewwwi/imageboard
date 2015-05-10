@@ -1,6 +1,14 @@
+<% @page_title = 'Edit Thread' %>
 <center><h2>Edit Thread</h2></center>
 
 <%= form_for([@board, @thr], html: {class: "form-horizontal", multipart: true}) do |f| %>
+	
+	<div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <%= error_messages_for(@thr) %>
+        </div>
+    </div>
+    
     <div class="form-group">
         <%= f.label :title, class: "col-sm-3 control-label" %>
         <div class="col-sm-6"><%= f.text_field :title, class: "form-control" %></div>
@@ -8,6 +16,6 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">
-            <%= f.submit "Create Thread", class: "btn btn-primary" %>
+            <%= f.submit "Save Thread", class: "btn btn-primary" %>
     </div>  
 <% end %>   

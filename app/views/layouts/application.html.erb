@@ -1,57 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Imageboard</title>
+    <title><%= @page_title || "Imageboard" %></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+    
 </head>
 <body>
+    <%= render 'layouts/navigation_bar' %>
+
     <div class="container">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="<%= root_path %>">Imageboard</a>
-                </div>
-                <div>
-                    <ul class="nav navbar-nav">
-                        <% Board.all.order(:name).each do |board| %> 
-                            <li class="<%= 'active' if current_page?(board) %>"><%= link_to board.name, board %></li>
+        <div class="row">
+            <div class="hidden-sm hidden-xs col-md-2">
+                <div id='nav_boards' style='height:100%;'>
+                    <center>
+                        <%= link_to root_path do %>
+                            <%= image_tag 'right-menu.png',  width: '150px' %>
+                        <% end %>
+                    </center>
+                    <br>    
+                
+                    <ul class="nav nav-pills nav-stacked" >
+                        <% Board.all.order(:name).each do |board| %>
+                            <li>
+                                <%= link_to board do %>
+                                    /<%= board.name %>/ — <%= board.description %>
+                                <% end %>
+                            </li>
                         <% end %>
                     </ul>
-                    <p class="navbar-text pull-right">
-                        <% if user_signed_in? %>
-                            <strong><%= current_user.username %></strong>
-                            <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-                            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link', data: { confirm: 'Are you sure to Logout?'}  %>
-                        <% else %>
-                            <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-                            <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-                        <% end %>  
-                    </p>    
                 </div>
+            </div>    
+            <div class="col-md-10 col-sm-12 col-sm-12">
+                <% if notice %>
+                    <p class="alert alert-success"><%= notice %></p>
+                <% end %>
+                <% if alert %>
+                    <p class="alert alert-danger"><%= alert %></p>
+                <% end %>
+
+                <%= yield %> 
+            
             </div>
-        </nav>
-        <% if user_signed_in? && current_user.admin %>
-            <div class="btn-group btn-group-justified" role="group" >
-                <div class="btn-group" role="group">
-                    <%= link_to "Boards", boards_path, type: "button", class: "btn btn-default" %>
-                </div>
-                <div class="btn-group" role="group">
-                    <%= link_to "Users", users_path, type: "button", class: "btn btn-default" %>
-                </div>
-            </div>
-        <% end %>
-        <% if notice %>
-            <p class="alert alert-success"><%= notice %></p>
-        <% end %>
-        <% if alert %>
-            <p class="alert alert-danger"><%= alert %></p>
-        <% end %>
-        <%= yield %> 
+        </div>
     </div>
+         
+    <nav class="navbar navbar-default footer" >
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" >
+                <ul class="nav navbar-nav" style="width:100%; text-align:center;">
+                    <li style='float:none; display:inline-block;'><p class="navbar-text">All trademarks and copyrights on this page are owned by their respective parties. Images uploaded are the responsibility of the Poster. Comments are owned by the Poster.</p></li>
+                </ul>   
+            </div>
+        </div>
+    </nav>  
+     
 </body>
 </html>

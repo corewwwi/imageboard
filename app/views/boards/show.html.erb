@@ -1,6 +1,9 @@
+<% @page_title = @board.description %>
+<%= link_to [@board] do %>
 <center><h2><b><%= @board.description %></b></h2></center>
+<% end %>
 <center><h4><%= @board.terms %></h4></center>
-
+<center><h4>Bumplimit: <%= @board.bumplimit %> posts</h4></center>
 <% if user_signed_in? %> 
     <div align="center">
         <% if current_user.banned? %>
@@ -9,57 +12,34 @@
             <p class="text-danger"><b>You are banned!</b><p>
         <% else %>
             <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button" %> 
+            <br> <br>
         <% end %>  
-   </div>      
-<% end %>
-<%= paginate @thrs %>
-
-<%- @thrs.each do |thr| %> 
-
-    <div class="panel panel-primary">
+   </div>
         
-        <div class="panel-heading">
-            <h3 class="panel-title" align="center"> 
-                <%= link_to board_thr_path(@board, thr) do %> 
-                    <b><%= thr.title %></b> 
-                <% end %>
-                <% if thr.bump_limit? %>
-                    <b>!Bumplimit!</b>
-                 <% end %>    
-            </h3>
-        </div>
-
-        <div class="panel-body">
-            <% thr.posts.where(op: true).each do |post|  %>
-                <%= render partial: 'thrs/post', :locals => { post: post, thr: thr, board: @board } %>          
-            <% end %>   
-        </div>
-
-        <div class="panel-footer">
-             
-            Ответов:
-            <span class="badge"><%= thr.child_posts_count %></span>
-            <% if user_signed_in? && current_user.admin %> 
-                <%= link_to "Delete", board_thr_path(@board, thr), data: { confirm: 'Are you sure you want to delete thread "' + thr.title + '" ?'}, method: :delete, class: "btn btn-danger", role: "button" %> 
-                <%= link_to "Edit", edit_board_thr_path(@board, thr), class: "btn btn-success", role: "button" %>
-            <% end %>                
-        </div>
-
-    </div>
 <% end %>
-<%= paginate @thrs %>
-<% if @thrs.count == 0 %>
-    <div class="jumbotron">
+
+<% if @thrs.blank? %>
+    <div class="well col-sm-offset-1 col-sm-10">
         <% if user_signed_in? %>
             <% if current_user.banned? %>
-                <center><h2>There are no Threads yet.</h2></center>
+                <center><h3>There are no any threads on this board yet :c</h3></center>
             <% else %>
-                <center><h2>There are no Threads yet. You can <%= link_to "create", new_board_thr_path(@board)%> first!</h2></center>
+                <center><h3>There are no any threads on this board yet :c</h3></center>
+                <center><h4>You can <%= link_to "create", new_board_thr_path(@board)%> first!</h4></center>
             <% end %>    
         <% else %>  
-             <center><h2>There are no Threads yet. <%= link_to "Login", new_user_session_path %> to create new!</h2></center> 
+             <center><h3>There are no any threads on this board yet :c</h3></center> 
+             <center><h4><%= link_to "Login", new_user_session_path %> to create new!</h4></center> 
         <% end %>     
-    </div>    
+    </div>  
+<% else %>
+    <%= paginate @thrs %>
+
+    <%- @thrs.each do |thr| %> 
+        <%= render partial: 'op_post', :locals => { post: thr.posts.op_post, thr: thr, board: @board } %>   
+    <% end %>
+
+    <%= paginate @thrs %>
 <% end %>    
 
 

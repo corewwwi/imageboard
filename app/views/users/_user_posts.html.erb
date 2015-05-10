@@ -1,0 +1,22 @@
+<br>
+    <div class="paginator">
+        <%= paginate @posts, :remote => true %>
+    </div> 
+    <br>
+    <div id='u_posts'>    
+        <% @posts.each do |post| %>
+    
+            <%= link_to board_path(post.thr.board) do %> 
+                    <b><%= post.thr.board.name %></b> 
+            <% end %>
+            <b>/</b>
+            <%= link_to board_thr_path(post.thr.board, post.thr) do %> 
+                <b><%= post.thr.title %></b> 
+            <% end %>
+            <%= render partial: 'thrs/post', :locals => { post: post, thr: post.thr, board: post.thr.board, number: post.post_number } %>
+    <% end %>   
+    </div>
+    <br>
+    <div class="paginator">
+        <%= paginate @posts, :remote => true %>
+    </div> 

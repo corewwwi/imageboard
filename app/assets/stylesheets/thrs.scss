@@ -9,7 +9,7 @@ table.post{
 
 td.youtube_video{
     width:250px;
-    padding-left:10px;
+    padding-right:10px;
 }
 
 td.content{
@@ -22,3 +22,12 @@ td.pic{
     overflow:visible;
     padding-right:10px;
 }
+
+.form{
+	display:none;
+}
+
+#thr_edit{
+    display: inline-block;
+}
+

@@ -1,5 +1,7 @@
 $(document).ready(function() {
-  $("#show_form").click(function() {
+
+  $('body').on('click', "#show_form", function(e) {
+  	e.preventDefault();
     $(".form").slideToggle(300);
   });
 });

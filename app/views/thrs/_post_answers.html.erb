@@ -1,0 +1,4 @@
+<em> Answers: </em>
+<% post.answers.each do |answer| %>
+    <%= link_to ">>#{answer.id}", board_thr_path(post.thr.board, post.thr, anchor: answer.id), data: { anchor: answer.id }, class: 'post_anchor' %>
+<% end %>
