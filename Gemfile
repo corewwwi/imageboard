@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'aws-sdk'
+gem "figaro"
+gem 'aws-sdk-v1'
 gem "haml-rails", "~> 0.9"
 gem 'haml', '~> 4.0.5'
 gem 'bootstrap-sass'
