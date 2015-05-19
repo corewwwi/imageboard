@@ -19,7 +19,7 @@
                     Anonymous    
                 <% end %>
             <% end %> &nbsp; 
-            <%= post.created_at.strftime("%d %b %Y %H:%M:%S") %> &nbsp;
+            <%= pretty_datetime(post.created_at) %> &nbsp;
             <%= link_to '#', class: 'get_answer', data: { post_id: ">>#{post.id}" } do %>
                 <b>#<%= post.id %></b>
             <% end %> &nbsp; 

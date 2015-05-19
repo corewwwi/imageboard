@@ -23,7 +23,7 @@
     </tr>
     <tr>
         <td>Sign Up</td>
-        <td><%= @user.created_at.strftime("%d %b %Y %H:%M:%S") %></td>
+        <td><%= pretty_datetime(@user.created_at) %></td>
     </tr>
     <tr>
         <td>Sign in count</td>
@@ -31,7 +31,7 @@
     </tr>
     <tr>
         <td>Current Sign in at</td>
-        <td><%= @user.current_sign_in_at.strftime("%d %b %Y %H:%M:%S") if @user.current_sign_in_at %> </td>
+        <td><%= pretty_datetime(@user.current_sign_in_at) if @user.current_sign_in_at %> </td>
     </tr>
     <tr>
         <td>Current Sign in IP</td>
@@ -39,7 +39,7 @@
     </tr>
     <tr>
         <td>Last sign in at</td>
-        <td><%= @user.last_sign_in_at.strftime("%d %b %Y %H:%M:%S") if @user.last_sign_in_at  %></td>
+        <td><%= pretty_datetime(@user.last_sign_in_at) if @user.last_sign_in_at  %></td>
     </tr>
     <tr>
         <td>Last Sign in IP</td>
@@ -63,10 +63,6 @@
 </div>
 </center>
 
-<div id='user_thrs'>
-     
-</div>
-<div id='user_posts'>
-    
-</div>    
+<div id='user_thrs'></div>
+<div id='user_posts'></div>    
 <br>

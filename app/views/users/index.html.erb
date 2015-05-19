@@ -25,9 +25,9 @@
                 <% end %>        
             </td>
             <td class="vert-align"><%= user.email %></td>
-            <td class="vert-align"><%= user.created_at.strftime("%d %b %Y %H:%M:%S") %></td>
+            <td class="vert-align"><%= pretty_datetime(user.created_at) %></td>
             <td class="vert-align"><%= user.sign_in_count %></td>
-            <td class="vert-align"><%= user.last_sign_in_at.strftime("%d %b %Y %H:%M:%S") if user.last_sign_in_at %></td>
+            <td class="vert-align"><%= pretty_datetime(user.last_sign_in_at) if user.last_sign_in_at %></td>
             <td class="vert-align"><%= user.status %></td>
             <td class="vert-align"><%= link_to "Edit", edit_user_path(user), class: "btn btn-default", role: "button" %></td>
             

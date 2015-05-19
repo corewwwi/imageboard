@@ -19,16 +19,8 @@
                 <p><%= link_to "Sign up", new_user_registration_path, class: "btn btn-success", role: "button" %>
                 <%= link_to "Login", new_user_session_path, class: "btn btn-primary", role: "button" %></p>
             <% end %>    
-         
     </div>  
-
-
 <center><h2>Updated Threads</h2></center><br>
-
 <%- @thrs.each do |thr| %> 
-
     <%= render partial: 'boards/op_post', :locals => { post: thr.posts.op_post, thr: thr, board: thr.board } %>          
-               
-        
 <% end %>
-
