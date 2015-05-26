@@ -1,9 +1,39 @@
 class Thr < ActiveRecord::Base
     belongs_to :board
     belongs_to :user
-    has_many :posts
+    has_many :posts, dependent: :destroy 
+
+    accepts_nested_attributes_for :posts
  
-    validates :title, length: { in: 1..30,
-                                message: "Title must have 1..30 characters!" }
-    #before_create :set_op                        
+    validates :title, presence: true,
+                      length: { maximum: 70 }
+    
+    before_destroy :delete_pic
+
+    scope :op_post, -> { posts.order(:created_at).first }
+
+    # for save thr without nested attributes
+    # def save_with_post(post)
+    #     Thr.transaction do
+    #         save!
+    #         post.thr = self
+    #         post.save!
+    #     end
+    # rescue => e
+    #     false
+    # end
+
+    def delete_pic
+        self.posts.each do |post| 
+            post.pic.destroy
+        end     
+    end    
+
+    def bump_limit?
+        if self.posts.count >= self.board.bumplimit
+            true
+        end
+    end    
+
+           
 end

@@ -1,0 +1,37 @@
+<% @page_title = 'Users List' %>
+<center><h2><b>Users List</b></h2></center>
+<table style="width:100%" class="table">
+    <thead>
+    <tr>
+        <th>№</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Sign Up</th>
+        <th>Sign in count</th>
+        <th>Last sign in at</th>
+        <th >Status</th>
+        <th></th>
+        
+    </tr>
+    </thead>
+    <tbody>   
+    <% @users.each_with_index do |user, index| %>
+
+        <tr class="<%= "danger" if user.banned? %>" >
+            <td class="vert-align"><%= index + 1 %></td>
+            <td class="vert-align">
+                <%= link_to user do %>
+                    <b><%= user.username %><b>
+                <% end %>        
+            </td>
+            <td class="vert-align"><%= user.email %></td>
+            <td class="vert-align"><%= pretty_datetime(user.created_at) %></td>
+            <td class="vert-align"><%= user.sign_in_count %></td>
+            <td class="vert-align"><%= pretty_datetime(user.last_sign_in_at) if user.last_sign_in_at %></td>
+            <td class="vert-align"><%= user.status %></td>
+            <td class="vert-align"><%= link_to "Edit", edit_user_path(user), class: "btn btn-default", role: "button" %></td>
+            
+        </tr>       
+    <% end %>
+    </tbody>
+</table>

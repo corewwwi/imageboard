@@ -1,17 +1,38 @@
-<center><h2><%= @thr.title %></h2></center>
-<%- @op_post.each do |post| %>
-    <div class="well">
-        <%= post.created_at %>
-        №<%= post.id %><br>
-        <%= post.content %>
-    </div>
+<% @page_title = @thr.title %>
+<%= link_to [@board] do %>
+<center><h2><b><%= @board.description %></b></h2></center>
 <% end %>
-<%- @posts.each do |post| %> 
-    <div class="well">
-        <%= post.created_at %>
-        №<%= post.id %><br>
-        <%= post.content %>
-    </div>
+<center><h4><%= @board.terms %></h4></center>
+<center><h4>Bumplimit: <%= @board.bumplimit %> posts</h4></center>
+<center><h2><b><%= @thr.title %></b>
+<% if user_signed_in? && current_user.admin? %> 
+    <div class="btn-group" id='thr_edit'>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id='edit_shelf'>
+                        Edit <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><%= link_to "Rename", edit_board_thr_path(@board, @thr) %></li>
+                        <li><%= link_to "Delete", board_thr_path(@board, @thr), data: { confirm: 'Are you sure you want to delete thread "' + @thr.title + '" ?'}, method: :delete %></li>
+                    </ul>
+                </div>
+ <% end %>
+ </h2></center>
+ 
+<div id='posts'>
+<% @posts.each_with_index do |post, index| %> 
+    <%= render partial: 'post', :locals => { post: post, thr: @thr, board: @board, number: index + 1 } %>       
 <% end %>
+</div>
+<% if user_signed_in? %>
+    <center><%= link_to "Post a Reply", '#', id: "show_form", class: "btn btn-success", role: "button" %></center>
+    <div class="form" id="post_form">
+        <%= render "posts/form" %> 
+    </div> 
+    <br> 
+<% else %>
+    <div class="well col-sm-offset-2 col-sm-8">
+    <center><h3>You have to <%= link_to "Login", new_user_session_path %> to create new post.</h3></center> 
+    <center><h4>Or <%= link_to "Sign Up", new_user_registration_path %> if you have not account yet.</h4></center> 
+    </div> 
+<% end %>   
 
-<%= render "posts/form" %>

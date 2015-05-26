@@ -6,34 +6,39 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-	b = Board.create(name: "b", description: "Бред", terms: "Правила отсутствуют")
-	pr = Board.create(name: "pr", description: "Программирование", terms: "Правила отсутствуют")
-	mu = Board.create(name: "mu", description: "Музыка", terms: "Правила отсутствуют")
+    user = User.create(email: "user@gmail.com", password: "123456", username: "user", status: "user")  
+    admin = User.create(email: "admin@gmail.com", password: "123456", username: "admin", status: "admin")    
+    banned_user = User.create(email: "ban@gmail.com", password: "123456", username: "banned", status: "banned")    
 
-	thr1 = Thr.create(user_id: 1, title: "Это первый тред", board_id: 1 )
-	thr2 = Thr.create(user_id: 1, title: "Это второй тред", board_id: 1 )
-	thr3 = Thr.create(user_id: 1, title: "Это третий тред", board_id: 1 )
-	thr4 = Thr.create(user_id: 1, title: "Это четверый тред", board_id: 1 )
-
-	user1 = User.create(login: "абу", email: "123456@gmail.com", password: "1234")	
-	user2 = User.create(login: "йоба", email: "12345@gmail.com", password: "1234")	
-	user3 = User.create(login: "кек", email: "1234@gmail.com", password: "1234")	
+    diy = Board.create(name: 'diy', description: 'Hobby', terms: 'Hobby and DIY')
+    mov = Board.create(name: 'mov', description: 'Movies', terms: 'Movies and series')
+    mu = Board.create(name: 'mu', description: 'Music', terms: 'All about music')
+    pr = Board.create(name: 'pr', description: 'Programming', terms: 'Program on HTML')
+    bo = Board.create(name: 'bo', description: 'Books', terms: 'Only books')
 
 
-	post1 = Post.create(user_id: 1, thr_id: 1, op: true, created_at: Time.now, content: "ОП-пост" )
-	post2 = Post.create(user_id: 2, thr_id: 1, op: false, created_at: Time.now, content: "Ответ1" )
-	post3 = Post.create(user_id: 3, thr_id: 1, op: false, created_at: Time.now, content: "Ответ2" )
+    
+	4.times do |t|
+		thr = Thr.create(title: "Thread #{t*3 + 1}", board_id: 1, user_id: 1)
+		5.times do |p|
+			pp = Post.create(thr_id: t*3 + 1, content: "Post #{p*2 + 1}", user_id: 1 )
+			pp = Post.create(thr_id: t*3 + 1, content: "Post #{p*2 + 2}", user_id: 2 )	
+		end
+		
+		thr = Thr.create(title: "Thread #{t*3 + 2}", board_id: 1, user_id: 2)
+		100.times do |p|
+			pp = Post.create(thr_id: t*3 + 2, content: "Post #{p*5 + 1}", user_id: 1 )
+			pp = Post.create(thr_id: t*3 + 2, content: "Post #{p*5 + 2}", sage: true , user_id: 2 )
+			pp = Post.create(thr_id: t*3 + 2, content: "Post #{p*5 + 3}", user_id: 1 )
+			pp = Post.create(thr_id: t*3 + 2, content: "Post #{p*5 + 4}", user_id: 2 )
+			pp = Post.create(thr_id: t*3 + 2, content: "Post #{p*5 + 5}", anon: true , user_id: 1 )
+		end	
 
-	post4 = Post.create(user_id: 1, thr_id: 2, op: true, created_at: Time.now, content: "OP" )
-	post5 = Post.create(user_id: 2, thr_id: 2, op: false, created_at: Time.now, content: "Crystal Castles were an experimental electronic band which formed in 2003 in Toronto, Ontario, Canada and consists of producer Ethan Kath and vocalist Alice Glass. They are named after the lyrics “The fate of the world is safe in Crystal Castles” and “Crystal Castles, the source of all power” both from the theme song for She-Ra’s fortress. They are known for their melancholic lo-fi sound and their explosive live shows. Their debut album was included in NME’s “Top 50 Albums of the Decade”." )
-	post6 = Post.create(user_id: 3, thr_id: 2, op: false, created_at: Time.now, content: "Crystal Castles were an experimental electronic band which formed in 2003 in Toronto, Ontario, Canada and consists of producer Ethan Kath and vocalist Alice Glass. They are named after the lyrics “The fate of the world is safe in Crystal Castles” and “Crystal Castles, the source of all power” both from the theme song for She-Ra’s fortress. They are known for their melancholic lo-fi sound and their explosive live shows. Their debut album was included in NME’s “Top 50 Albums of the Decade”." )
-
-	post7 = Post.create(user_id: 1, thr_id: 3, op: true, created_at: Time.now, content: "ОП-пост." )
-	post8 = Post.create(user_id: 2, thr_id: 3, op: false, created_at: Time.now, content: "Ответ1" )
-	post9 = Post.create(user_id: 3, thr_id: 3, op: false, created_at: Time.now, content: "Ответ2" )
-
-	post10 = Post.create(user_id: 1, thr_id: 4, op: true, created_at: Time.now, content: "Длинный ОП-пост. Crystal Castles were an experimental electronic band which formed in 2003 in Toronto, Ontario, Canada and consists of producer Ethan Kath and vocalist Alice Glass." )
-	post11 = Post.create(user_id: 2, thr_id: 4, op: false, created_at: Time.now, content: "Crystal Castles were an experimental electronic band which formed in 2003 in Toronto, Ontario, Canada and consists of producer Ethan Kath and vocalist Alice Glass. They are named after the lyrics “The fate of the world is safe in Crystal Castles” and “Crystal Castles, the source of all power” both from the theme song for She-Ra’s fortress. They are known for their melancholic lo-fi sound and their explosive live shows. Their debut album was included in NME’s “Top 50 Albums of the Decade”." )
-	post12 = Post.create(user_id: 3, thr_id: 4, op: false, created_at: Time.now, content: "Crystal Castles were an experimental electronic band which formed in 2003 in Toronto, Ontario, Canada and consists of producer Ethan Kath and vocalist Alice Glass. They are named after the lyrics “The fate of the world is safe in Crystal Castles” and “Crystal Castles, the source of all power” both from the theme song for She-Ra’s fortress. They are known for their melancholic lo-fi sound and their explosive live shows. Their debut album was included in NME’s “Top 50 Albums of the Decade”." )
-
+		thr = Thr.create(title: "Thread #{t*3 + 3}", board_id: 1, user_id: 1)
+		50.times do |p|
+			pp = Post.create(thr_id: t*3 + 3, content: "Post #{p + 1}", user_id: 1 )
+		end
+	end
 	
+   	
+   

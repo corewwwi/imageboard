@@ -1,11 +1,71 @@
-<center><h2>New Post</h2></center>
-<%= form_for([@board, @thr, @post], html: {class: "form-horizontal"}) do |f| %>
+
+<%= form_for([@board, @thr, @post], html: { class: "form-horizontal", multipart: true }) do |f| %>
+
+    <div class="form-group" >
+        <div class="col-sm-offset-3 col-sm-6" id='post_error'>
+            <%= error_messages_for(@post) %>
+        </div>
+    </div>
+
     <div class="form-group">
-        <%= f.label "Post", class: "col-sm-2 control-label" %>
-        <div class="col-sm-7"><%= f.text_area :content, class: "form-control", rows: "3" %></div>
+        <%= f.label :content, "Comment", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_area :content, class: "form-control", rows: "4", placeholder: "max 15000 characters", id: "content" %></div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
-            <%= f.submit "Create Post", class: "btn btn-primary" %>
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="checkbox">
+                <%= f.label :sage, class: "checkbox-inline" do %>    
+                    <%= f.check_box :sage %>Sage
+                <% end %>            
+            
+                <%= f.label :anon, "Anonymous", class: "checkbox-inline" do %>    
+                    <%= f.check_box :anon %>Anonymous
+                <% end %>            
+            </div>
+        </div>    
+    </div> 
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <div class="btn-group" role="group" id='media'>
+                <button type="button" class="btn btn-default" id='image'>Image</button>
+                <button type="button" class="btn btn-default" id='video'>Video</button>
+            </div>
+        </div>
     </div>
-<% end %>   
+
+    <div class="form-group" id='youtube_video_form' style='display:none;'>
+        <%= f.label :youtube_video, "Youtube link", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6"><%= f.text_field :youtube_video, class: "form-control", id: "youtube_video" %></div>
+    </div>
+
+    <div class="form-group" id='pic_form' style='display:none;'>
+        <%= f.label :pic, "Image", class: "col-sm-3 control-label" %>
+        <div class="col-sm-6">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <span class="btn btn-default btn-file">
+                    <span class="fileinput-new">Select file</span>
+                    <span class="fileinput-exists">Change</span>
+                    <%= f.file_field :pic %>
+                </span>
+                <span class="fileinput-filename"></span>
+                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+            <% if current_user.banned? %>
+                <%= f.submit "Create Post", class: "btn btn-primary", disabled: "disabled" %> 
+                <b class="text-danger">You are banned!</font></b>
+            <% else %>
+                <%= f.submit "Create Post", class: "btn btn-primary", id: "submit_button" %>
+            <% end %>  
+        </div>
+    </div>
+
+<% end %>  
+

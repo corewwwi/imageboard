@@ -1,8 +1,19 @@
 source 'https://rubygems.org'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'e
 
+gem 'rubocop', require: false
+gem "figaro"
+gem 'aws-sdk-v1'
+gem "haml-rails", "~> 0.9"
+gem 'haml', '~> 4.0.5'
+gem 'bootstrap-sass'
+gem 'jquery-ui-rails'
+gem 'kaminari'
+gem "paperclip", "~> 4.2"
+gem 'devise'
 gem 'heroku'
-gem 'validates_email_format_of'
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'jquery-turbolinks'
+
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -45,6 +56,12 @@ group :development, :test do
   gem 'pry'
   gem 'pry-rails'
 end
+
+group :test do
+  gem 'minitest-reporters', '1.0.5'
+  gem 'mini_backtrace',     '0.1.3'
+end
+
 group :production do
   gem 'thin'
 end

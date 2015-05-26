@@ -1,2 +1,7 @@
-Problems:
-- не сортирует треды по последнему посту (параметр :bump_time), хотя по другим параметрам сортирует.
+Imageboard
+
+Users for testing:
+
+User: { email: "user@gmail.com", password: "123456", username: "user" }
+Admin: { email: "admin@gmail.com", password: "123456", username: "admin" }
+Banned_user: { email: "ban@gmail.com", password: "123456", username: "banned" }
