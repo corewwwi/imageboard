@@ -7,18 +7,9 @@
 	  		<b><i>What is Imageboard?</i></b>
 	  	</h4>
 	  	<div class='well well-sm'>
-	  		<b>Imageboard</b> is a simple image-based bulletin board where anyone can post comments and share images. Different boards are dedicated to different topics, from programming, to movies, music, and hobby. You can view the discussion on 7chan without registration. However, you must have an account to join the discussion. Registration is free and open to everyone.
+	  		<b>Imageboard</b> is a simple image-based bulletin board where anyone can post comments and share images and video. Different boards are dedicated to different topics, from programming, to movies, music, and hobby. You can view the discussion on <b>Imageboard</b> without registration. However, you must have an account to join the discussion. Registration is free and open to everyone.
 		</div>
    	</li>
-   	<li>
-	  	<h4>
-	  		<i class="glyphicon glyphicon-flash"></i> 
-	  		<b><i>What should I know before I post?</i></b>
-	  	</h4>
-	  	<div class='well well-sm'>
-	  		Users are encouraged to participate actively in our community, but only after they have familiarized themselves with the rules and this FAQ. Breaking the rules may result in post deletion, a temporary ban, or in some cases, permanent banishment. Understand the rules before you begin posting!
-		</div>
-  	</li>
   	<li>
 	  	<h4>
 	  		<i class="glyphicon glyphicon-flash"></i> 
@@ -82,9 +73,7 @@
     				</div>
     				<h3 class="panel-title" style="padding-top: 2px;">
         				№25 &nbsp; Ivan &nbsp; 28 Apr 2015 20:39:01 &nbsp;
-        				<%= link_to '#' do %>
-            				<b>#2353</b> 
-            			<% end %>
+        				<%= content_tag(:a, '<b>#2353</b>'.html_safe, role: "button") %>
     				</h3>
 				</div>
 			</div>
@@ -96,9 +85,7 @@
     				</div>
     				<h3 class="panel-title" style="padding-top: 2px;">
         				№46 &nbsp; Anonymous &nbsp; 28 Apr 2015 20:43:23 &nbsp;
-        				<%= link_to '#' do %>
-            				<b>#2378</b> 
-            			<% end %> &nbsp; 
+        				<%= content_tag(:a, '<b>#2378</b>'.html_safe, role: "button") %> &nbsp; 
             			Sage!
     				</h3>
 				</div>
@@ -118,9 +105,7 @@
 				<div class="panel-heading clearfix">
     				<h3 class="panel-title">
         				Petro &nbsp; 28 Apr 2015 21:20:04 &nbsp; 
-        				<%= link_to '#' do %>
-        					<b>Music thread</b>
-        				<% end %>	
+        				<%= content_tag(:a, '<b>Music thread</b>'.html_safe, role: "button") %>	
     				</h3>
 				</div>
 			</div>
@@ -129,9 +114,7 @@
 				<div class="panel-heading clearfix">
     				<h3 class="panel-title">
         				Mykola &nbsp; 28 Apr 2015 20:39:01 &nbsp; 
-        				<%= link_to '#' do %>
-        					<b>Movies thread (bumplimit)</b>
-        				<% end %>	
+        				<%= content_tag(:a, '<b>Music thread (bumplimit)</b>'.html_safe, role: "button") %>		
     				</h3>
 				</div>
 			</div>
