@@ -45,4 +45,6 @@ RSpec.describe Thr, type: :model do
 
   end  
 
+  
+
 end
