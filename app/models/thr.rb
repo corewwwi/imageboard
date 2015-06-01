@@ -1,7 +1,8 @@
 class Thr < ActiveRecord::Base
+
   belongs_to :board
   belongs_to :user
-  has_many :posts, dependent: :destroy 
+  has_many :posts, dependent: :destroy
 
   accepts_nested_attributes_for :posts
  
@@ -10,7 +11,7 @@ class Thr < ActiveRecord::Base
   
   before_destroy :delete_pic
 
-  # for save thr without nested attributes
+  # for saving thr without nested attributes
   # def save_with_post(post)
   #     Thr.transaction do
   #         save!
@@ -22,16 +23,15 @@ class Thr < ActiveRecord::Base
   # end
 
   def delete_pic
-    self.posts.each do |post| 
+    self.posts.each do |post|
       post.pic.destroy
-    end     
-  end    
+    end
+  end
 
   def bump_limit?
     if self.posts.count >= self.board.bumplimit
       true
     end
-  end    
+  end
 
-       
 end

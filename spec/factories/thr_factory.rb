@@ -2,10 +2,11 @@ FactoryGirl.define do
 
   factory :thr do |f| 
     f.id 1
+    f.user_id 1
     f.title 'Thread'
     association :board, factory: :board
-    association :user, factory: :user
-   
+
+       
     factory :thr_without_bumplimit do  
       
       ignore do

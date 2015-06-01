@@ -28,6 +28,7 @@ RSpec.describe Thr, type: :model do
     it { should belong_to(:board) }
     it { should belong_to(:user) }
     it { should have_many(:posts).dependent(:destroy) }
+    it { should accept_nested_attributes_for :posts }
 
   end
  
