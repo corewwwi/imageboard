@@ -41,11 +41,11 @@ RSpec.describe BoardsController, :type => :controller do
 
   describe "GET #show" do
     let (:board) { FactoryGirl.create(:board) }
-    before (:example) do
-      get :show, name: board.name
-    end
     context "login admin" do
       login_admin
+      before (:example) do
+        get :show, name: board.name
+      end
       it "has a 200 status code" do
         expect(response.status).to eq(200)
       end
@@ -58,6 +58,9 @@ RSpec.describe BoardsController, :type => :controller do
     end 
     context "login user" do
       login_user
+      before (:example) do
+        get :show, name: board.name
+      end
       it "has a 200 status code" do
         expect(response.status).to eq(200)
       end
@@ -70,6 +73,9 @@ RSpec.describe BoardsController, :type => :controller do
     end 
     context "login banned user" do
       login_banned
+      before (:example) do
+        get :show, name: board.name
+      end
       it "has a 200 status code" do
         expect(response.status).to eq(200)
       end
@@ -217,7 +223,7 @@ RSpec.describe BoardsController, :type => :controller do
           put :update, name: board.name, board: FactoryGirl.attributes_for(:board) 
           expect(assigns(:board)).to eq(board)
         end 
-        it "changes @board's attributes" do 
+        it "changes @board attributes" do 
           put :update, name: board.name, board: FactoryGirl.attributes_for(:board, name: "mov", description: "Movies") 
           board.reload 
           expect(board.name).to eq("mov")
@@ -233,7 +239,7 @@ RSpec.describe BoardsController, :type => :controller do
           put :update, name: board.name, board: invalid_board
           expect(assigns(:board)).to eq(board) 
         end 
-        it "does not change @board's attributes" do 
+        it "does not change @board attributes" do 
           put :update, name: board.name, board: invalid_board
           board.reload 
           expect(board.name).to eq("pr")

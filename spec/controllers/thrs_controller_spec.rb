@@ -261,7 +261,7 @@ RSpec.describe ThrsController, :type => :controller do
           put :update, id: thr.id, board_name: thr.board.name, thr: FactoryGirl.attributes_for(:thr) 
           expect(assigns(:thr)).to eq(thr)
         end 
-        it "changes @thr's attributes" do 
+        it "changes @thr attributes" do 
           put :update, id: thr.id, board_name: thr.board.name, thr: FactoryGirl.attributes_for(:thr, title: 'New Thread') 
           thr.reload 
           expect(thr.title).to eq('New Thread')
@@ -277,7 +277,7 @@ RSpec.describe ThrsController, :type => :controller do
           put :update, id: thr.id, board_name: thr.board.name, thr: invalid_thr
           expect(assigns(:thr)).to eq(thr) 
         end 
-        it "does not change @thr's attributes" do 
+        it "does not change @thr attributes" do 
           put :update, id: thr.id, board_name: thr.board.name, thr: invalid_thr
           thr.reload 
           expect(thr.title).to eq("Thread")
