@@ -164,7 +164,7 @@ RSpec.describe ThrsController, :type => :controller do
         end 
       end 
       context "with invalid attributes" do 
-        it "does not save the new board" do 
+        it "does not save the new thr" do 
           expect{ post :create, thr: invalid_thr, board_name: board.name }.to_not change(board.thrs,:count) 
         end 
         it "re-renders the #new action with errors" do 
