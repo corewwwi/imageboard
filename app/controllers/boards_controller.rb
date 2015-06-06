@@ -55,8 +55,4 @@ class BoardsController < ApplicationController
       params.require(:board).permit(:name, :pages_limit, :bumplimit, :description, :terms)
     end
 
-    def render_404
-      render file: "#{Rails.root}/public/404.html", layout: false, status: 404
-    end
-
 end

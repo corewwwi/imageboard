@@ -1,9 +1,9 @@
 FactoryGirl.define do 
-  factory :board do |f| 
-    f.name 'pr'
-    f.description 'description' 
-    f.terms 'terms' 
-    f.bumplimit 5
-    f.pages_limit 10
+  factory :board do
+    name 'pr'
+    description 'description' 
+    terms 'terms' 
+    bumplimit 5
+    pages_limit 10
   end 
 end 

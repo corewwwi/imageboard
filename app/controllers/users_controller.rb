@@ -50,8 +50,4 @@ class UsersController < ApplicationController
       params.require(:user).permit(:username, :status)
     end
 
-    def render_404
-      render file: "#{Rails.root}/public/404.html", layout: false, status: 404
-    end
-
 end

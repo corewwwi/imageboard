@@ -10,9 +10,9 @@ RSpec.describe ApplicationHelper, :type => :helper do
   end
 
   describe "#error_messages_for" do
-    let! (:post) { FactoryGirl.build(:post) }
+    let! (:post) { build(:post) }
 
-    it "render the error_messages partial" do
+    it "renders the error_messages partial" do
       expect(helper.error_messages_for(post)).to render_template(partial: 'application/_error_messages', locals: { object: post })
     end
   end

@@ -1,22 +1,24 @@
 FactoryGirl.define do 
-  factory :user do |f| 
-    f.email 'user@example.com'
-    f.username 'user' 
-    f.password '123456' 
-    f.status 'user'
+  factory :user do
+    email 'user@example.com'
+    username 'user' 
+    password '123456' 
+    status 'user'
   
-    factory :admin do |f| 
-      f.email 'admin@example.com'
-      f.username 'admin' 
-      f.password '123456' 
-      f.status 'admin'
+    trait :admin do 
+      email 'admin@example.com'
+      username 'admin' 
+      password '123456' 
+      status 'admin'
     end 
 
-    factory :banned do |f| 
-      f.email 'banned@example.com'
-      f.username 'banned' 
-      f.password '123456' 
-      f.status 'banned'
+    trait :banned do 
+      email 'banned@example.com'
+      username 'banned' 
+      password '123456' 
+      status 'banned'
     end 
+    factory :admin, traits: [:admin]
+    factory :banned, traits: [:banned]
   end 
 end 

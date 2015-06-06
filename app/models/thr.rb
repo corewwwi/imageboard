@@ -29,9 +29,7 @@ class Thr < ActiveRecord::Base
   end
 
   def bump_limit?
-    if self.posts.count >= self.board.bumplimit
-      true
-    end
+    self.posts.count >= self.board.bumplimit ? true : false
   end
 
 end

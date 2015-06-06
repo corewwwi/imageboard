@@ -22,7 +22,10 @@ require 'support/controller_macros'
 RSpec.configure do |config|
 
   config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers, :type => :view
   config.extend ControllerMacros, :type => :controller
+  config.extend ControllerMacros, :type => :view
+
 
   config.before(:suite) do
     DatabaseCleaner[:active_record].strategy = :transaction

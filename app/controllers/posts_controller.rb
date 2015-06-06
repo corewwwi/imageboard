@@ -50,10 +50,6 @@ class PostsController < ApplicationController
       params.require(:post).permit(:content, :pic, :sage, :anon, :youtube_video)
     end
 
-    def render_404
-      render file: "#{Rails.root}/public/404.html", layout: false, status: 404
-    end
-
 end
 
 

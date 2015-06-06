@@ -3,7 +3,17 @@ require "rails_helper"
 RSpec.describe UsersController, :type => :controller do
 
   describe "GET #index" do
-    context "login admin" do
+
+    shared_examples "deny access" do
+      before (:example) do
+        get :index 
+      end  
+      it "has a 404 status code" do
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context "when login admin" do
       login_admin
       before (:example) do
         get :index 
@@ -19,29 +29,31 @@ RSpec.describe UsersController, :type => :controller do
         expect(assigns['users']).to eq(users)
       end 
     end 
-    context "login user" do
+
+    context "when login user" do
       login_user
-      before (:example) do
-        get :index 
-      end  
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
-      end 
+      it_behaves_like "deny access"  
     end 
-    context "login banned user" do
+
+    context "when login banned user" do
       login_banned
-      before (:example) do
-        get :index 
-      end  
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
-      end 
+      it_behaves_like "deny access"  
     end
   end
 
   describe "GET #show" do
-    let (:user) { FactoryGirl.create(:user, username: "Stepan", email: "stepan@example.com") }
-    context "login admin" do
+    let (:user) { create(:user, username: "Stepan", email: "stepan@example.com") }
+
+    shared_examples "deny access" do
+      before (:example) do
+        get :show, id: user.id
+      end
+      it "has a 404 status code" do
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context "when login admin" do
       login_admin
       before (:example) do
         get :show, id: user.id
@@ -56,31 +68,33 @@ RSpec.describe UsersController, :type => :controller do
         expect(assigns['user']).not_to be_nil
       end
     end 
-    context "login user" do
+    
+    context "when login user" do
       login_user
-      before (:example) do
-        get :show, id: user.id
-      end
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
-      end
+      it_behaves_like "deny access" 
     end 
-    context "login banned user" do
+    
+    context "when login banned user" do
       login_banned
+      it_behaves_like "deny access" 
+    end
+  end
+
+  describe "GET #show_thrs" do
+    let (:user) { create(:user, username: "Stepan", email: "stepan@example.com") }
+    let (:thr) { create(:thr) }
+    let (:post) { create(:post) }
+
+    shared_examples "deny access" do
       before (:example) do
-        get :show, id: user.id
+        xhr :get, :show_thrs, id: user.id, format: "js"
       end
       it "has a 404 status code" do
         expect(response.status).to eq(404)
       end
     end
-  end
 
-  describe "GET #show_thrs" do
-    let (:user) { FactoryGirl.create(:user, username: "Stepan", email: "stepan@example.com") }
-    let (:thr) { FactoryGirl.create(:thr) }
-    let (:post) { FactoryGirl.create(:post) }
-    context "login admin" do
+    context "when login admin" do
       login_admin
       before (:example) do
         xhr :get, :show_thrs, id: user.id, format: "js"
@@ -95,31 +109,33 @@ RSpec.describe UsersController, :type => :controller do
         expect(assigns['thrs']).to eq(user.thrs)
       end
     end 
-    context "login user" do
+
+    context "when login user" do
       login_user
-      before (:example) do
-        xhr :get, :show_thrs, id: user.id, format: "js"
-      end
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
-      end
+      it_behaves_like "deny access" 
     end 
-    context "login banned user" do
+
+    context "when login banned user" do
       login_banned
+      it_behaves_like "deny access" 
+    end
+  end
+
+  describe "GET #show_posts" do
+    let (:user) { create(:user, username: "Stepan", email: "stepan@example.com") }
+    let (:thr) { create(:thr) }
+    let (:post) { create(:post) }
+
+    shared_examples "deny access" do
       before (:example) do
-        xhr :get, :show_thrs, id: user.id, format: "js"
+        xhr :get, :show_posts, id: user.id, format: "js"
       end
       it "has a 404 status code" do
         expect(response.status).to eq(404)
       end
     end
-  end
 
-  describe "GET #show_posts" do
-    let (:user) { FactoryGirl.create(:user, username: "Stepan", email: "stepan@example.com") }
-    let (:thr) { FactoryGirl.create(:thr) }
-    let (:post) { FactoryGirl.create(:post) }
-    context "login admin" do
+    context "when login admin" do
       login_admin
       before (:example) do
         xhr :get, :show_posts, id: user.id, format: "js"
@@ -134,31 +150,32 @@ RSpec.describe UsersController, :type => :controller do
         expect(assigns['posts']).to eq(user.posts)
       end
     end 
-    context "login user" do
+
+    context "when login user" do
       login_user
-      before (:example) do
-        xhr :get, :show_posts, id: user.id, format: "js"
-      end
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
-      end
+      it_behaves_like "deny access" 
     end 
-    context "login banned user" do
+
+    context "when login banned user" do
       login_banned
+      it_behaves_like "deny access" 
+    end
+  end
+
+  describe "GET #edit" do
+    let (:user) { create(:user, username: "Stepan", email: "stepan@example.com") }
+
+    shared_examples "deny access" do
       before (:example) do
-        xhr :get, :show_posts, id: user.id, format: "js"
+        get :edit, id: user.id
       end
       it "has a 404 status code" do
         expect(response.status).to eq(404)
       end
     end
-  end
-
-  describe "GET #edit" do
     
-    context "login admin" do
+    context "when login admin" do
       login_admin
-      let (:user) { FactoryGirl.create(:user, username: "Stepan", email: "stepan@example.com") }
       before (:example) do
         get :edit, id: user.id
       end
@@ -169,48 +186,49 @@ RSpec.describe UsersController, :type => :controller do
         expect(response).to render_template('edit')
       end 
     end 
-    context "login user" do
+
+    context "when login user" do
       login_user
-      let (:user) { FactoryGirl.create(:user, username: "Stepan", email: "stepan@example.com") }
-      before (:example) do
-        get :edit, id: user.id
-      end
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
-      end
+      it_behaves_like "deny access" 
     end 
-    context "login banned user" do
+
+    context "when login banned user" do
       login_banned
-      let (:user) { FactoryGirl.create(:user, username: "Stepan", email: "stepan@example.com") }
-      before (:example) do
-        get :show_posts, id: user.id
-      end
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
-      end
+      it_behaves_like "deny access" 
     end
   end
 
   describe 'PUT #update' do 
-    let (:user) { FactoryGirl.create(:user, username: "Stepan", email: "stepan@example.com") }
-    let (:invalid_user) { FactoryGirl.attributes_for(:user, status: :banned, username: nil) }
-    context "login admin" do
+    let (:user) { create(:user, username: "Stepan", email: "stepan@example.com") }
+    let (:invalid_user) { attributes_for(:user, status: :banned, username: nil) }
+    
+    shared_examples "deny access" do
+      it "has a 404 status code" do 
+        put :update, id: user.id, user: user
+        expect(response.status).to eq(404)
+      end 
+    end
+
+    context "when login admin" do
       login_admin
       context "valid attributes" do 
         it "located the requested @user" do 
-          put :update, id: user.id, user: FactoryGirl.attributes_for(:user) 
+          put :update, id: user.id, user: attributes_for(:user) 
           expect(assigns(:user)).to eq(user)
         end 
         it "changes @user attributes" do 
-          put :update, id: user.id, user: FactoryGirl.attributes_for(:user, username: "Mykola")
+          put :update, id: user.id, user: attributes_for(:user, username: "Mykola")
           user.reload 
           expect(user.username).to eq('Mykola')
         end 
         it "redirects to users" do 
-          put :update, id: user.id, user: FactoryGirl.attributes_for(:user, username: "Mykola")
-          expect(flash[:notice]).to match(/^User successfully updated/)
+          put :update, id: user.id, user: attributes_for(:user, username: "Mykola")
           expect(response).to redirect_to("/users")
         end 
+        it "appears success flash" do
+          put :update, id: user.id, user: attributes_for(:user, username: "Mykola")
+          expect(flash[:notice]).to match(/^User successfully updated/)
+        end
       end 
       context "invalid attributes" do 
         it "locates the requested @user" do 
@@ -230,19 +248,15 @@ RSpec.describe UsersController, :type => :controller do
         end 
       end 
     end 
-    context "login user" do
+
+    context "when login user" do
       login_user
-      it "has a 404 status code" do 
-        put :update, id: user.id, user: user
-        expect(response.status).to eq(404)
-      end 
+      it_behaves_like "deny access"  
     end 
-    context "login banned user" do
+    
+    context "when login banned user" do
       login_banned
-      it "has a 404 status code" do 
-        put :update, id: user.id, user: user
-        expect(response.status).to eq(404)
-      end 
+      it_behaves_like "deny access" 
     end
   end 
 

@@ -3,47 +3,26 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   context 'validations' do
+    let(:user) { build(:user) }
 
     it "is valid" do
-      expect(FactoryGirl.build(:user)).to be_valid 
+      expect(user).to be_valid 
     end
 
-    it "is invalid without .email" do
-      expect(FactoryGirl.build(:user, email: nil)).not_to be_valid 
-    end
+    context ".email validations" do
+      it { should validate_presence_of(:email) }
+      it { should validate_uniqueness_of(:email) }
+    end  
 
-    it "is invalid without .username" do
-      expect(FactoryGirl.build(:user, username: nil)).not_to be_valid 
-    end
+    context ".username validations" do
+      it { should validate_presence_of(:username) }
+      it { should validate_uniqueness_of(:username) }
+    end  
 
-    it "is invalid without .password" do
-      expect(FactoryGirl.build(:user, password: nil)).not_to be_valid 
-    end
-
-    it "is invalid with a duplicate .email" do
-      FactoryGirl.create(:user)
-      user = FactoryGirl.build(:user, email: 'user@example.com')
-      user.valid?
-      expect(user.errors[:email]).to include("has already been taken")
-    end
-
-    it "is invalid with a duplicate .username" do
-      FactoryGirl.create(:user)
-      user = FactoryGirl.build(:user, username: 'user')
-      user.valid?
-      expect(user.errors[:username]).to include("has already been taken")
-    end
-
-    it "is invalid with a duplicate case sensitive .username" do
-      FactoryGirl.create(:user)
-      user = FactoryGirl.build(:user, username: 'UsEr')
-      user.valid?
-      expect(user.errors[:username]).to include("has already been taken")
-    end
-
-    it "is invalid with .password less then 6 characters" do
-      expect(FactoryGirl.build(:user, password: '12345')).not_to be_valid 
-    end
+    context ".password validations" do
+      it { should validate_presence_of(:password) }
+      it { should validate_length_of(:password).is_at_least(6).is_at_most(128) }
+    end  
     
   end
 
