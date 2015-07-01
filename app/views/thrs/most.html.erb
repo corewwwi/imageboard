@@ -1,18 +1,5 @@
     <div class="jumbotron">
         <h1><center>Imageboard</center></h1>
-            <div style="width:100%;text-align: center;">
-            <div style="display: inline-block;">
-            <%= image_tag 'left_frog.jpg', class: "img-circle img-responsive", height: "100px", width: '100px' %>
-            </div>
-            &nbsp; &nbsp; &nbsp;
-            <div style="display: inline-block;">
-            <%= image_tag 'center_frog.jpg', class: "img-circle img-responsive", height: "100px", width: '100px' %>
-            </div>
-            &nbsp; &nbsp; &nbsp;
-            <div style="display: inline-block;">
-            <%= image_tag 'right_frog.jpg', class: "img-circle img-responsive", height: "100px", width: '100px' %>
-            </div>
-        </div>
             <p><b>Imageboard</b> is a simple image-based bulletin board where anyone can post comments and share images. There are boards dedicated to a variety of topics. Users need to register an account before participating in the community. Feel free to click on a board left that interests you and jump right in!</p>
             <p>Be sure to read the <%= link_to 'FAQ', faq_path %> if you wish to learn more about how to use the site.</p>
             <% unless user_signed_in? %>

@@ -1,7 +1,10 @@
-Imageboard
+== Level Two Heading
 
-Users for testing:
+\*Imageboard* - simple image-based bulletin board for messaging on a variety topics. 
 
-User: { email: "user@gmail.com", password: "123456", username: "user" }
-Admin: { email: "admin@gmail.com", password: "123456", username: "admin" }
-Banned_user: { email: "ban@gmail.com", password: "123456", username: "banned" }
+\*Technologies*: Ruby on Rails, HTML/HAML, CSS/SCSS,  JavaScript + JQuery, AJAX, Bootstrap, Git, RSpec, PostgreSQL, Amazon S3, RubyGems: devise, paperclip, kaminari, bootstrap-sass, haml-rails, heroku, aws-sdk-v1, figaro, pry, rubocop, factory_girl_rails, rspec-rails.
+
+\*Users for testing:*
+* User: { email: "user@gmail.com", password: "123456", username: "user" }
+* Admin: { email: "admin@gmail.com", password: "123456", username: "admin" }
+* Banned_user: { email: "ban@gmail.com", password: "123456", username: "banned" }
