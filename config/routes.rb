@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -18,12 +19,12 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   match 'faq' => 'pages#faq', via: [:get]
-  resources :users, except: [:new, :create, :destroy] do
-    member do
-      get :show_thrs
-      get :show_posts
-    end
-  end  
+  # resources :users, except: [:new, :create, :destroy] do
+  #   member do
+  #     get :show_thrs
+  #     get :show_posts
+  #   end
+  # end  
   resources :boards, only: [:index, :create]
   resources :boards, param: :name, path: '/', except: [:index, :create] do
     resources :thrs, except: [:index] do
