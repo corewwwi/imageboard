@@ -3,6 +3,8 @@ class Thr < ActiveRecord::Base
   belongs_to :board
   belongs_to :user
   has_many :posts, dependent: :destroy
+  has_many :subscriptions
+  has_many :users, through: :subscriptions
 
   accepts_nested_attributes_for :posts
  
