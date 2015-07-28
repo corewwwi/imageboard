@@ -1,6 +1,6 @@
 class ThrsController < ApplicationController
   before_action :get_board, except: [:most, :index]
-  before_action :get_thr, only: [:show, :destroy, :edit, :update]
+  before_action :get_thr, only: [:show, :destroy, :edit, :update, :subscribe]
   after_action :destroy_old_thr, only: [:new, :create]
   before_action :authenticate_user!, except: [:most, :show]
   before_action only: [:destroy, :edit, :update] do
@@ -56,6 +56,14 @@ class ThrsController < ApplicationController
     flash[:notice] = "Thread successfully destroyed"
     redirect_to [@board]
   end
+
+  def subscribe
+    user = current_user
+    @thr.subscription << user
+    respond_to do |format|
+      format.js {  }
+    end
+  end  
 
   private
 
