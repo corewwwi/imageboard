@@ -34,7 +34,11 @@
     Posts:
     %span.badge
       = thr.posts.count 
-    = link_to "Subscribe", root_path, class: "btn btn-primary", role: "button"   
+    - if user_signed_in?
+      - if current_user.subscriptions.find_by(thr: thr)  
+        = link_to "Subscribed", subscribe_board_thr_path(board, thr), class: "btn btn-success", role: "button", data: { thr_id: "#{thr.id}" }, :method => :post, remote: true 
+      - else
+        = link_to "Subscribe", subscribe_board_thr_path(board, thr), class: "btn btn-primary", role: "button", data: { thr_id: "#{thr.id}" }, :method => :post, remote: true    
     - if user_signed_in? && current_user.admin? 
       .btn-group
         %button.btn.btn-default.dropdown-toggle{ type: "button", data: { toggle: "dropdown" }, aria: {expanded: "false"}, id: 'edit_shelf'}
@@ -45,3 +49,4 @@
             = link_to "Rename", edit_board_thr_path(board, thr)
           %li
             = link_to "Delete", board_thr_path(board, thr), data: { confirm: 'Are you sure you want to delete thread "' + thr.title + '" ?'}, method: :delete
+

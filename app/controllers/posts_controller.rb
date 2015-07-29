@@ -23,6 +23,8 @@ class PostsController < ApplicationController
     if @post.save
       @thr.updated_at = @post.created_at unless (@post.sage || @thr.posts.count > @board.bumplimit)
       @thr.save
+      @subscriptions = Subscription.where(thr: @post.thr)
+      Post.deliver_new_message_mail(@subscriptions, @post)
       respond_to do |format|
         format.html { redirect_to [@thr.board, @thr] }
         format.js { render :show }

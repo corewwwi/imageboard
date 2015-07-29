@@ -55,4 +55,11 @@ class Post < ActiveRecord::Base.send(:include, Rails.application.routes.url_help
     self.thr.posts.where("created_at < ?", self.created_at).count + 1
   end
 
+  def self.deliver_new_message_mail(subscriptions, post)
+    subscriptions.each do |subscription|
+      user = subscription.user
+      UserMailer.new_message(user, post).deliver_now
+    end
+  end     
+
 end

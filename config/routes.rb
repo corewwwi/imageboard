@@ -29,7 +29,12 @@ Rails.application.routes.draw do
   resources :boards, param: :name, path: '/', except: [:index, :create] do
     resources :thrs, except: [:index] do
       resources :posts, only: [:new, :create]
-     end 
+
+      member do
+        post 'subscribe'
+      end
+
+    end 
   end  
   
   # Example resource route with options:

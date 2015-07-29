@@ -59,10 +59,13 @@ class ThrsController < ApplicationController
 
   def subscribe
     user = current_user
-    @thr.subscription << user
-    respond_to do |format|
-      format.js {  }
-    end
+    unless Subscription.find_by(user: user, thr: @thr)
+      @thr.subscriptions << Subscription.create(user: user, thr: @thr)
+      respond_to do |format|
+        format.html { render 'show' }
+        format.js { render :subscribe }
+      end
+    end  
   end  
 
   private
