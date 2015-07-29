@@ -1,0 +1,5 @@
+$("a[data-thr-id='<%= @thr.id %>']")
+	.removeClass('btn-default')
+	.addClass('btn-primary')
+	.attr("href", "/<%= @thr.board.name %>/thrs/<%= @thr.id %>/subscribe")
+	.html('Subscribe');

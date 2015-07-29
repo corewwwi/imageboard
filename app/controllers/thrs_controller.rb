@@ -1,6 +1,6 @@
 class ThrsController < ApplicationController
   before_action :get_board, except: [:most, :index]
-  before_action :get_thr, only: [:show, :destroy, :edit, :update, :subscribe]
+  before_action :get_thr, only: [:show, :destroy, :edit, :update, :subscribe, :unsubscribe]
   after_action :destroy_old_thr, only: [:new, :create]
   before_action :authenticate_user!, except: [:most, :show]
   before_action only: [:destroy, :edit, :update] do
@@ -60,13 +60,24 @@ class ThrsController < ApplicationController
   def subscribe
     user = current_user
     unless Subscription.find_by(user: user, thr: @thr)
-      @thr.subscriptions << Subscription.create(user: user, thr: @thr)
+      Subscription.create(user: user, thr: @thr)
       respond_to do |format|
-        format.html { render 'show' }
+        format.html { render 'subscribe' }
         format.js { render :subscribe }
       end
     end  
-  end  
+  end 
+
+  def unsubscribe
+    user = current_user
+    if subscription = Subscription.find_by(user: user, thr: @thr)
+      subscription.destroy
+      respond_to do |format|
+        format.html { render 'unsubscribe' }
+        format.js { render :unsubscribe }
+      end
+    end  
+  end 
 
   private
 

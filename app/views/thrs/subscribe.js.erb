@@ -1,1 +1,5 @@
-$("a[data-thr-id='<%= @thr.id %>']").removeClass('btn-primary').addClass('btn-success').html('Subscribed');
+$("a[data-thr-id='<%= @thr.id %>']")
+	.removeClass('btn-primary')
+	.addClass('btn-default')
+	.attr("href", "/<%= @thr.board.name %>/thrs/<%= @thr.id %>/unsubscribe")
+	.html('Unsubscribe');
