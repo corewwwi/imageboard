@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'e
 
+gem "cancan"
 gem 'rails_admin', '~> 0.6.8'
 gem 'rubocop', require: false
 gem "figaro"

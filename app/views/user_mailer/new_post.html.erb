@@ -4,11 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h3>Hi, <%= @user.username %>! there is a new post in thread "<%= @thr.title %>!"</h3>
-    <p>New post text:></p>
+    <h3>Hi, <%= @user.username %>! There is a new post in thread "<%= @thr.title %>!"</h3>
+    <p>New post text:</p>
     <blockquote>
       <p><%= @post.content.strip %></p>
     </blockquote>
-    <p>See all post here: <%= @url %>
+    <p>See all post here: <%= @url %>.</p>
   </body>
 </html>

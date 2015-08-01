@@ -6,7 +6,7 @@
 <center><h4>Bumplimit: <%= @board.bumplimit %> posts</h4></center>
 <% if user_signed_in? %> 
     <div align="center">
-        <% if current_user.banned? %>
+        <% if cannot? :create, Thr %>
             <%= link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button", disabled: "disabled" %> 
            
             <p class="text-danger"><b>You are banned!</b><p>
@@ -21,7 +21,7 @@
 <% if @thrs.blank? %>
     <div class="well col-sm-offset-1 col-sm-10">
         <% if user_signed_in? %>
-            <% if current_user.banned? %>
+            <% if cannot? :create, Thr %>
                 <center><h3>There are no any threads on this board yet :c</h3></center>
             <% else %>
                 <center><h3>There are no any threads on this board yet :c</h3></center>

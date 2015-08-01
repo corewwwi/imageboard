@@ -6,8 +6,8 @@
 
 *Users for testing*:
 
-* User: { email: "user@gmail.com", password: "123456", username: "user" }
-* Admin: { email: "admin@gmail.com", password: "123456", username: "admin" }
-* Banned_user: { email: "ban@gmail.com", password: "123456", username: "banned" }
+* User: { email: "user@example.com", password: "123456", username: "user" }
+* Admin: { email: "admin@example.com", password: "123456", username: "admin" }
+* Banned_user: { email: "ban@example.com", password: "123456", username: "banned" }
 
 App on Heroku: https://imageboard777.herokuapp.com

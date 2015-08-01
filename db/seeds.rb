@@ -6,9 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-    user = User.create(email: "user@gmail.com", password: "123456", username: "user", status: "user")  
-    admin = User.create(email: "admin@gmail.com", password: "123456", username: "admin", status: "admin")    
-    banned_user = User.create(email: "ban@gmail.com", password: "123456", username: "banned", status: "banned")    
+    user = User.create(email: "user@example.com", password: "123456", username: "user", status: "user")  
+    admin = User.create(email: "admin@example.com", password: "123456", username: "admin", status: "admin")    
+    banned_user = User.create(email: "ban@example.com", password: "123456", username: "banned", status: "banned")    
 
     diy = Board.create(name: 'diy', description: 'Hobby', terms: 'Hobby and DIY')
     mov = Board.create(name: 'mov', description: 'Movies', terms: 'Movies and series')

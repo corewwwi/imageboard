@@ -58,7 +58,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-6">
-            <% if current_user.banned? %>
+            <% if cannot? :create, Post %>
                 <%= f.submit "Create Post", class: "btn btn-primary", disabled: "disabled" %> 
                 <b class="text-danger">You are banned!</font></b>
             <% else %>

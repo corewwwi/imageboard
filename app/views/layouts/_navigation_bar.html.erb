@@ -20,7 +20,7 @@
                         <% end %>
                     </ul>
                 </li>
-                <% if user_signed_in? && current_user.admin? %>
+                <% if can? :update, User %>
                     <li><%= link_to 'Admin', rails_admin_path %></li>
                 <% end %>
             </ul>
