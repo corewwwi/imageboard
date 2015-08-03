@@ -5,7 +5,7 @@
 <center><h4><%= @board.terms %></h4></center>
 <center><h4>Bumplimit: <%= @board.bumplimit %> posts</h4></center>
 <center><h2><b><%= @thr.title %></b>
-<% if user_signed_in? && can? :update, @thr %> 
+<% if user_signed_in? && can?(:update, @thr) %> 
     <div class="btn-group" id='thr_edit'>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id='edit_shelf'>
                         Edit <span class="caret"></span>

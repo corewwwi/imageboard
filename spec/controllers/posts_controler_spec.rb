@@ -35,8 +35,8 @@ RSpec.describe PostsController, :type => :controller do
       before (:example) do
         get :new, thr_id: thr.id, board_name: thr.board.name
       end 
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
+      it "has a 500 status code" do
+        expect(response.status).to eq(500)
       end 
     end
   end  
@@ -105,9 +105,9 @@ RSpec.describe PostsController, :type => :controller do
       login_banned
       let (:thr) { create(:thr) }
       let (:valid_post) { attributes_for(:post) }
-      it "has a 404 status code" do 
+      it "has a 500 status code" do 
         post :create, post: valid_post, thr_id: thr.id, board_name: thr.board.name
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(500)
       end 
       it "not creates a new board" do 
         expect{ post :create, post: valid_post, thr_id: thr.id, board_name: thr.board.name }.not_to change(Post,:count)

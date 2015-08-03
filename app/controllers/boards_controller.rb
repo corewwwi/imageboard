@@ -1,9 +1,11 @@
 class BoardsController < ApplicationController
   before_action :get_board, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show]
-  before_action  except: [:show]  do
-    render_404 unless current_user.admin?
-  end
+  # before_action  only: [:create]  do
+  #   render_500 unless current_user.admin?
+  # end
+  load_and_authorize_resource
+  skip_authorize_resource only: [:show]
 
   def index
     @boards = Board.all.order(name: :desc)

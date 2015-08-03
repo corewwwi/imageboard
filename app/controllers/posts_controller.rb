@@ -2,9 +2,10 @@ class PostsController < ApplicationController
   before_action :get_thr, only: [:new, :create]
   before_action :get_board, only: [:new, :create]
   before_action :authenticate_user!, only: [:new, :create]
-  before_action only: [:new, :create] do
-    render_404 if current_user.banned?
-  end
+  # before_action only: [:create] do
+  #   render_500 if current_user.banned?
+  # end
+  load_and_authorize_resource
 
   def edit
   end

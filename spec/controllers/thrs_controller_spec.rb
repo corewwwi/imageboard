@@ -110,8 +110,8 @@ RSpec.describe ThrsController, :type => :controller do
       before (:example) do
         get :new, board_name: thr.board.name
       end 
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
+      it "has a 500 status code" do
+        expect(response.status).to eq(500)
       end 
     end
   end  
@@ -163,9 +163,9 @@ RSpec.describe ThrsController, :type => :controller do
       login_banned
       let (:board) { create(:board) }
       let (:thr) { attributes_for(:thr) }
-      it "has a 404 status code" do 
+      it "has a 500 status code" do 
         post :create, thr: thr, board_name: board.name
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(500)
       end 
       it "not creates a new board" do 
         expect{ post :create, thr: thr, board_name: board.name }.not_to change(board.thrs,:count)
@@ -180,8 +180,8 @@ RSpec.describe ThrsController, :type => :controller do
       before (:example) do
         get :edit, id: thr.id, board_name: thr.board.name
       end
-      it "has a 404 status code" do
-        expect(response.status).to eq(404)
+      it "has a 500 status code" do
+        expect(response.status).to eq(500)
       end
     end
     
@@ -215,9 +215,9 @@ RSpec.describe ThrsController, :type => :controller do
     let (:invalid_thr) { attributes_for(:thr, title: nil) }
 
     shared_examples "deny access" do
-      it "has a 404 status code" do 
+      it "has a 500 status code" do 
         put :update, id: thr.id, board_name: thr.board.name, thr: attributes_for(:thr, title: 'New Thread') 
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(500)
       end
     end
 
@@ -277,9 +277,9 @@ RSpec.describe ThrsController, :type => :controller do
     let! (:thr) { create(:thr) }
 
     shared_examples "deny access" do
-      it "has a 404 status code" do 
+      it "has a 500 status code" do 
         delete :destroy, id: thr.id, board_name: thr.board.name
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(500)
       end 
     end
 

@@ -3,12 +3,14 @@ class ThrsController < ApplicationController
   before_action :get_thr, only: [:show, :destroy, :edit, :update, :subscribe, :unsubscribe]
   after_action :destroy_old_thr, only: [:new, :create]
   before_action :authenticate_user!, except: [:most, :show]
-  before_action only: [:destroy, :edit, :update] do
-    render_404 unless current_user.admin?
-  end
-  before_action only: [:new, :create] do
-    render_404 if current_user.banned?
-  end
+  # before_action only: [:destroy, :edit, :update] do
+  #   render_500 unless current_user.admin?
+  # end
+  # before_action only: [:create] do
+  #   render_500 if current_user.banned?
+  # end
+  load_and_authorize_resource 
+  skip_authorize_resource :only => [:most, :index, :show]
 
   def most
     @thrs = Thr.all.order(updated_at: :desc).limit(10)
