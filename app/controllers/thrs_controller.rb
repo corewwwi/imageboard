@@ -26,11 +26,11 @@ class ThrsController < ApplicationController
 
   def new
     @thr = Thr.new
-    @thr.posts.build
+    @thr.posts.build(params[:post])
   end
 
   def create
-    @thr = Thr.new(params[:thr].permit(:title, posts_attributes: [:content, :pic, :anon, :youtube_video, :user_id]))
+    @thr = Thr.new(thr_params)
     @thr.board = @board
     @thr.user = current_user
     if @thr.save
@@ -45,7 +45,7 @@ class ThrsController < ApplicationController
   end
 
   def update
-    if @thr.update(thr_params)
+    if @thr.update(params[:thr].permit(:title))
       flash[:notice] = "Thread successfully updated"
       redirect_to [@board, @thr]
     else
@@ -99,7 +99,7 @@ class ThrsController < ApplicationController
     end
 
     def thr_params
-      params.require(:thr).permit(:title)
+      params.require(:thr).permit(:title, posts_attributes: [:content, :pic, :anon, :youtube_video, :user_id])
     end
 
     def render_404

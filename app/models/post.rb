@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base.send(:include, Rails.application.routes.url_helpers)
   include ActionView::Helpers::UrlHelper
 
-  belongs_to :thr
+  belongs_to :thr, :inverse_of => :posts
   belongs_to :user
   has_and_belongs_to_many :answers,
     class_name: "Post",

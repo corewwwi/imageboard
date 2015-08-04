@@ -2,7 +2,7 @@ class Thr < ActiveRecord::Base
 
   belongs_to :board
   belongs_to :user
-  has_many :posts, dependent: :destroy
+  has_many :posts, dependent: :destroy, :inverse_of => :thr
   has_many :subscriptions
   has_many :users, through: :subscriptions
 
