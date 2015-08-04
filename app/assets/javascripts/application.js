@@ -18,4 +18,5 @@
 //= require bootstrap-sprockets
 //= require jasny-bootstrap
 //= require turbolinks
+//= require social-share-button
 //= require_tree .
