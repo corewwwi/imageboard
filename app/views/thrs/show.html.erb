@@ -1,11 +1,11 @@
 <% content_for :head do %>
     <meta property="og:title" content="<%= @thr.title %>"/> 
-    <meta property="og:description" content="<%= sanitize(simple_format(@thr.posts.first.content.strip)) %>"/>
+    <meta property="og:description" content="<%= @thr.posts.first.content.strip %>"/>
     <meta property="og:image" content="<%= @thr.posts.first.pic.url(:medium) %>"/>
     <meta property="og:url" content="<%= board_thr_url(@board, @thr) %>"/>
     
     <meta name="twitter:title" content="<%= @thr.title %>" />
-    <meta name="twitter:description" content="<%= sanitize(simple_format(@thr.posts.first.content.strip)) %>"/>
+    <meta name="twitter:description" content="<%= @thr.posts.first.content.strip %>"/>
     <meta name="twitter:image" content="<%= @thr.posts.first.pic.url(:medium) %>"/>
     <meta name="twitter:url" content="<%= board_thr_url(@board, @thr) %>"/>
 <% end %>
@@ -29,7 +29,7 @@
                 </div>
  <% end %>
  </h2></center>
- <center><%= social_share_button_tag(@thr.title) %></center>
+ <center><%= social_share_button_tag(@thr.title, :image => @thr.posts.first.pic.url(:medium) ) %></center>
 
 <div id='posts'>
 <% @posts.each_with_index do |post, index| %> 
