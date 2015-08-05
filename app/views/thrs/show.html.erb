@@ -8,8 +8,6 @@
     <meta name="twitter:description" content="<%= @thr.posts.first.content.strip %>"/>
     <meta name="twitter:image" content="<%= @thr.posts.first.pic.url(:small) %>"/>
     <meta name="twitter:url" content="<%= board_thr_url(@board, @thr) %>"/>
-
-    <script type="text/javascript" src="http://vk.com/js/api/share.js?9"; charset="windows-1251"></script>
 <% end %>
 
 <% @page_title = @thr.title %>
@@ -35,21 +33,23 @@
 <div class='social_share'>
     <center>
         <%= social_share_button_tag(@thr.title) %>
-        
-        <script type="text/javascript"><!--
-        document.write(VK.Share.button({ 
-            url: '<%= board_thr_url(@board, @thr) %>', 
-            title: '<%= @thr.title %>', 
-            description: '<%= @thr.posts.first.content.strip %>',  
-            image: '<%= @thr.posts.first.pic.url(:small) %>', 
-            noparse: true 
-        },
-        {
-            type: "custom", 
-            text: "<img src=\"http://vk.com/images/share_32_eng.png\" width=\"16\" height=\"16\" />", 
-            eng: 1
-        }));
-    --></script>
+
+        <script type="text/javascript">
+            <!-- 
+            document.write(VK.Share.button({ 
+                url: '<%= board_thr_url(@board, @thr) %>', 
+                title: '<%= @thr.title %>', 
+                description: '<%= @thr.posts.first.content.strip %>',  
+                image: '<%= @thr.posts.first.pic.url(:small) %>', 
+                noparse: true 
+            },
+            {
+                type: "custom", 
+                text: "<img src=\"http://vk.com/images/share_32_eng.png\" width=\"16\" height=\"16\" />", 
+                eng: 1
+            }));
+            --> 
+        </script>
     </center>
 </div>    
 <br>
