@@ -13,7 +13,7 @@ class Post < ActiveRecord::Base.send(:include, Rails.application.routes.url_help
     foreign_key: "answer_id",
     association_foreign_key: "post_id",
     join_table: "answers_posts"
-  has_attached_file :pic, styles: { medium: "700x700>", small: { geometry:'200x200', animated: false } }, :default_url => "/images/:style/missing.png"    
+  has_attached_file :pic, styles: { medium: "700x700", small: { geometry:'200x200', animated: false } }, :default_url => "/images/:style/missing.png"    
 
   validates :content, presence: true,
             length: { maximum: 15000 }
