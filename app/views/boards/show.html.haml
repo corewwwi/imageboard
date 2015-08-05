@@ -1,0 +1,55 @@
+- @page_title = @board.description
+= link_to [@board] do 
+  %center
+    %h2
+      %b
+        = @board.description
+%center
+  %h4
+    = @board.terms
+%center
+  %h4
+    Bumplimit:
+    = @board.bumplimit
+    posts
+- if user_signed_in?
+  %div{ align: "center" }
+    - if cannot? :create, Thr
+      = link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button", disabled: "disabled"
+       
+      %p.text-danger
+        %b You are banned!
+    - else
+      = link_to "New Thread", new_board_thr_path(@board), class: "btn btn-success", role: "button"
+      %br
+      %br
+
+- if @thrs.blank?
+  .well.col-sm-offset-1.col-sm-10
+    - if user_signed_in?
+      - if cannot? :create, Thr
+        %center
+          %h3 There are no any threads on this board yet :c
+      - else
+        %center
+          %h3 There are no any threads on this board yet :c
+        %center
+          %h4
+            You can
+            = link_to "create", new_board_thr_path(@board)
+            first!
+    - else
+      %center
+        %h3 There are no any threads on this board yet :c
+      %center
+        %h4
+          = link_to "Login", new_user_session_path
+          to create new!
+- else
+  = paginate @thrs
+
+  - @thrs.each do |thr|
+    = render partial: 'op_post', locals: { post: thr.posts.first, thr: thr, board: @board }
+
+  = paginate @thrs
+

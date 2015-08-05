@@ -1,48 +1,48 @@
 %div{class: ( thr.bump_limit? ? 'panel panel-default' : 'panel panel-info')}
   .panel-heading
-    %h3.panel-title 
-      - unless post.anon? 
-        - if post.user.admin? 
-          %b 
+    %h3.panel-title
+      - unless post.anon?
+        - if post.user.admin?
+          %b
             ADMIN
         - else
-          = post.user.username  
+          = post.user.username
       - else 
-        - if user_signed_in? && current_user.admin? 
+        - if user_signed_in? && current_user.admin?
           %b 
             Anonymous (
             = post.user.username
             )
-        - else 
-          Anonymous  
+        - else
+          Anonymous
       &nbsp;
       = pretty_datetime(thr.created_at)
       &nbsp;
       - if current_page?(controller: 'thrs', action: 'most')
         = link_to board_path(board) do 
-          %b= board.name 
+          %b= board.name
         %b /
       = link_to board_thr_path(board, thr) do  
         %b
-          = thr.title 
-      - if thr.bump_limit? 
-        %b (bumplimit)  
+          = thr.title
+      - if thr.bump_limit?
+        %b (bumplimit)
   .panel-body
     = render partial: 'thrs/post_content', locals: { post: thr.posts.op_post, thr: thr, board: board }
 
   .panel-footer
     Posts:
     %span.badge
-      = thr.posts.count 
-    - if user_signed_in? 
-      - if current_user.subscriptions.find_by(thr: thr)  
-        = link_to "Unsubscribe", unsubscribe_board_thr_path(board, thr), class: "btn btn-default", role: "button", data: { thr_id: "#{thr.id}" }, :method => :post, remote: true 
+      = thr.posts.count
+    - if user_signed_in?
+      - if current_user.subscriptions.find_by(thr: thr)
+        = link_to "Unsubscribe", unsubscribe_board_thr_path(board, thr), class: "btn btn-default", role: "button", data: { thr_id: "#{thr.id}" }, :method => :post, remote: true
       - else
         = link_to "Subscribe", subscribe_board_thr_path(board, thr), class: "btn btn-primary", role: "button", data: { thr_id: "#{thr.id}" }, :method => :post, remote: true    
-    - if user_signed_in? && can?(:update, thr) 
+    - if user_signed_in? && can?(:update, thr)
       .btn-group
         %button.btn.btn-default.dropdown-toggle{ type: "button", data: { toggle: "dropdown" }, aria: {expanded: "false"}, id: 'edit_shelf'}
-          Edit 
+          Edit
           %span.caret
         %ul.dropdown-menu{role: "menu"}
           %li

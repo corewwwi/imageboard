@@ -7,11 +7,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-
-    <script type="text/javascript" src="//vk.com/js/api/share.js?9" charset="windows-1251"></script>
-
+    <%= javascript_include_tag "//vk.com/js/api/share.js?9", charset: "windows-1251" %>
     <%= content_for?(:head) ? yield(:head) : '' %>
+    <%= csrf_meta_tags %>
 </head>
 <body>
     <%= render 'layouts/navigation_bar' %>

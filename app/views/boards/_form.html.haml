@@ -1,31 +1,28 @@
 .form-group
     .col-sm-offset-3.col-sm-6
-        = error_messages_for(board) 
+        = error_messages_for(board)
     
 .form-group
-    = f.label :name, class: "col-sm-3 control-label" 
+    = f.label :name, class: "col-sm-3 control-label"
     .col-sm-6
         = f.text_field :name, class: "form-control"
 
 .form-group
-    = f.label :pages_limit, class: "col-sm-3 control-label" 
+    = f.label :pages_limit, class: "col-sm-3 control-label"
     .col-sm-6
         = f.text_field :pages_limit, class: "form-control"
-  
+
 .form-group
     = f.label :bumplimit, class: "col-sm-3 control-label"
     .col-sm-6
         = f.text_field :bumplimit, class: "form-control" 
 
 .form-group
-    = f.label :description, class: "col-sm-3 control-label" 
+    = f.label :description, class: "col-sm-3 control-label"
     .col-sm-6
         = f.text_field :description, class: "form-control", rows: "3"
 
 .form-group
-    = f.label :terms, class: "col-sm-3 control-label" 
+    = f.label :terms, class: "col-sm-3 control-label"
     .col-sm-6
-        = f.text_area :terms, class: "form-control", rows: "3" 
-
-    
-
+        = f.text_area :terms, class: "form-control", rows: "3"
