@@ -25,16 +25,13 @@ Rails.application.routes.draw do
   #     get :show_posts
   #   end
   # end  
+
+      
   resources :boards, only: [:index, :create]
   resources :boards, param: :name, path: '/', except: [:index, :create] do
     resources :thrs, except: [:index] do
+      resources :subscriptions, only: [:create, :destroy]
       resources :posts, only: [:new, :create]
-
-      member do
-        post 'subscribe'
-        post 'unsubscribe'
-      end
-
     end 
   end  
   
@@ -78,3 +75,4 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 end
+

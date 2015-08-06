@@ -118,7 +118,7 @@ RSpec.describe ThrsController, :type => :controller do
 
   describe "POST #create" do 
 
-    shared_examples "allows creating post" do
+    shared_examples "allows creating thr" do
       let (:board) { create(:board) }
       let (:thr) { attributes_for(:thr) }
       let (:invalid_thr) { attributes_for(:thr, title: nil) }
@@ -151,12 +151,12 @@ RSpec.describe ThrsController, :type => :controller do
 
     context "when login admin" do
       login_admin
-      it_behaves_like "allows creating post"
+      it_behaves_like "allows creating thr"
     end
 
     context "when login user" do 
       login_user
-      it_behaves_like "allows creating post"
+      it_behaves_like "allows creating thr"
     end  
 
     context "when login banned user" do 
@@ -308,6 +308,6 @@ RSpec.describe ThrsController, :type => :controller do
       login_banned
       it_behaves_like "deny access" 
     end
-  end 
+  end   
 
 end

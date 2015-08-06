@@ -1,0 +1,6 @@
+$("a[data-thr-id='<%= @thr.id %>']")
+    .removeClass('btn-primary')
+    .addClass('btn-default')
+    .attr("href", "/<%= @thr.board.name %>/thrs/<%= @thr.id %>/subscriptions/<%= @subscription.id %>")
+    .data("method", "delete")
+    .html('Unsubscribe');

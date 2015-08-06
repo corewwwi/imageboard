@@ -18,12 +18,16 @@ class User < ActiveRecord::Base
   enum status: [:user, :banned, :admin]
 
   def self.find_for_database_authentication(warden_conditions)
-      conditions = warden_conditions.dup
-      if login = conditions.delete(:login)
-        where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-      else
-        where(conditions.to_h).first
-      end
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions.to_h).first
     end
+  end
+
+  def subscription(thr)
+    Subscription.find_by(user: self, thr: thr)
+  end  
 
 end
